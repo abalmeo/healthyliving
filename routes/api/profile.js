@@ -39,3 +39,51 @@ router.get(
         .catch(err => res.status(404).json(err));
     }
   );
+
+
+  router.post('inputBodyweight',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    const errors = {};
+    
+    let bodyWeight = {}; 
+    bodyWeights = req.body.bodyweight; 
+    Profile.findOne({email:req.body.email})
+        .then(profile => {
+            if(profile){
+            Profile.findOneAndUpdate(
+                {email: req.body.email},
+                {$push: {
+                    bodyweight:{
+                        $each: [{date:req.body.date,bodyweight:req.body.bodyweight}]
+                    }
+                }}
+            )}
+        })
+
+
+})
+
+
+router.post('inputBloodGlucose',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    const errors = {};
+    
+    let bloodGlucose = {}; 
+    bloodGlucose = req.body.bloodGlucose; 
+    Profile.findOne({email:req.body.email})
+        .then(profile => {
+            if(profile){
+            Profile.findOneAndUpdate(
+                {email: req.body.email},
+                {$push: {
+                    bloodGlucose:{
+                        $each: [{date:req.body.date,bloodGlucose:req.body.bloodGlucose}]
+                    }
+                }}
+            )}
+        })
+
+
+})

@@ -30,3 +30,8 @@
     transform: rotate(360deg);
   }
 }
+
+
+.navbar-brand{
+  padding: 3.0rem 2.5rem;
+}

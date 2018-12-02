@@ -28,13 +28,26 @@ logout(){
 render(){
     const isLoggedIn = this.state.loggedin;
     return(
-        <nav className="navbar">
-            <div className="container-fluid">
-            Test Navbar
-            </div>
+        <nav className="navbar navbar-light" styles="background-color: #e3f2fd;">
+              <div>
+                  <Link className="navbar-brand" to="/">
+                    {' '}
+                    Home
+                  </Link>
+                  <Link className="navbar-brand" to="/">
+                    {' '}
+                    My Results
+                  </Link>
+                  <Link className="navbar-brand" to="/healthforms">
+                    {' '}
+                    Health Forms
+                  </Link>
+                </div>
         </nav>
-
     )
 }
 }
 export default Navbar;
+
+
+

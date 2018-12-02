@@ -42,6 +42,10 @@ render(){
                     {' '}
                     Health Forms
                   </Link>
+                  <Link className="navbar-brand" to="/journal">
+                    {' '}
+                    Journal
+                  </Link>
                 </div>
         </nav>
     )

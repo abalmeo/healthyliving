@@ -4,11 +4,11 @@ import { Redirect } from "react-router-dom";
 
 
 
-class Registration extends Component {
+class Results extends Component {
     constructor() {
         super();
         this.state = {
-            profile:[]
+            results:[]
         }
 
         this.onChange = this.onChange.bind(this);
@@ -22,7 +22,8 @@ class Registration extends Component {
     onSubmit(e) {
         e.preventDefault();
         const entry = {
-            profile: this.state.profile,
+            date: this.state.date,
+            journalEntry: this.state.journalEntry,
         }
     }
 
@@ -31,10 +32,10 @@ class Registration extends Component {
 
     render() {
         return (
-            <div className="registration">
+            <div className="results">
                 <div className="container">
                     <div>
-                        Registration Page
+                        Results will go here
                     </div>
                 </div>
             </div>
@@ -43,4 +44,4 @@ class Registration extends Component {
     }
 }
 
-export default Registration;
+export default Results;

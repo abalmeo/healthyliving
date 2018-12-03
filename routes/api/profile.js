@@ -79,7 +79,33 @@ passport.authenticate('jwt', {session: false}),
                 {email: req.body.email},
                 {$push: {
                     bloodGlucose:{
-                        $each: [{date:req.body.date,bloodGlucose:req.body.bloodGlucose}]
+                        $each: [{date:req.body.date,
+                                 bloodGlucose:req.body.bloodGlucose
+                                }]
+                    }
+                }}
+            )}
+        })
+})
+
+
+router.post('inputBloodGlucose',
+passport.authenticate('jwt', {session: false}),
+(req, res) => {
+    const errors = {};
+    
+    let bloodGlucose = {}; 
+    bloodGlucose = req.body.bloodGlucose; 
+    Profile.findOne({email:req.body.email})
+        .then(profile => {
+            if(profile){
+            Profile.findOneAndUpdate(
+                {email: req.body.email},
+                {$push: {
+                    bloodGlucose:{
+                        $each: [{date:req.body.date,
+                                 bloodGlucose:req.body.bloodGlucose
+                                }]
                     }
                 }}
             )}

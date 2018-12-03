@@ -39,11 +39,12 @@ class HealthForms extends Component {
     render() {
     return (
       <div className="healthforms">
+        <div className="container">
     
                 <p>        
                   Input your form information
                 </p>
-          
+          </div>
       </div>
     );
   }

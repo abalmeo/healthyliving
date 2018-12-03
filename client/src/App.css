@@ -35,3 +35,8 @@
 .navbar-brand{
   padding: 3.0rem 2.5rem;
 }
+
+.dateSpacing{
+  padding: 2.5rem 0rem;
+  float: left
+}

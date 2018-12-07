@@ -4,7 +4,7 @@ import {Bar, Line, Pie} from "react-chartjs-2";
 import "chartjs-plugin-annotation";
 
 
-class Chart extends Component {
+class BodyWeightChart extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -40,4 +40,4 @@ class Chart extends Component {
        )
      }
     }
-export default Chart;
+export default BodyWeightChart;

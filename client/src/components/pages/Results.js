@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import Chart from "../../components/pages/Graphs";
+import BloodGlucoseChart from "../../components/graphs/BloodGlucose";
+import BodyWeightChart from "../../components/graphs/BodyWeight";
 
 
 class Results extends Component {
@@ -35,7 +36,10 @@ class Results extends Component {
             <div className="results">
                 <div className="container">
                     <div>
-                        <Chart/>
+                        <BloodGlucoseChart/>
+                    </div>
+                    <div>
+                        <BodyWeightChart/>
                     </div>
                 </div>
             </div>

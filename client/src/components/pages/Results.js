@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-
+import Chart from "../../components/pages/Graphs";
 
 
 class Results extends Component {
@@ -35,7 +35,7 @@ class Results extends Component {
             <div className="results">
                 <div className="container">
                     <div>
-                        Results will go here
+                        <Chart/>
                     </div>
                 </div>
             </div>

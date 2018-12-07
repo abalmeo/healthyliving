@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "chartjs-plugin-annotation": "^0.5.7",
     "moment": "^2.22.2",
     "react": "^16.6.3",
     "react-datetime": "^2.16.2",
@@ -26,5 +27,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "chart.js": "^2.7.3",
+    "react-chartjs-2": "^2.7.4"
+  }
 }

@@ -36,7 +36,6 @@ class Journal extends Component {
             <div className="journal">
                 <div className="container">
                 <div>
-                   
                 </div>
                 <DateTime/>
                     <form>

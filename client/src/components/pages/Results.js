@@ -3,6 +3,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import BloodGlucoseChart from "../../components/graphs/BloodGlucose";
 import BodyWeightChart from "../../components/graphs/BodyWeight";
+import JournalEntry from "../../components/pages/JournalEntry";
 
 
 class Results extends Component {
@@ -30,7 +31,6 @@ class Results extends Component {
 
 
 
-
     render() {
         return (
             <div className="results">
@@ -40,6 +40,11 @@ class Results extends Component {
                     </div>
                     <div>
                         <BodyWeightChart/>
+                    </div>
+                </div>
+                <div className="container">
+                    <div>
+                        <JournalEntry/>
                     </div>
                 </div>
             </div>

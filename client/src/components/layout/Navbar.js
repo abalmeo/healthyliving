@@ -40,9 +40,9 @@ render(){
                   </Link>
                   <Link className="navbar-brand" to="/healthforms">
                     {' '}
-                    Health Forms
+                    Health Form
                   </Link>
-                  <Link className="navbar-brand" to="/journal">
+                  <Link className="navbar-brand" to="/journalform">
                     {' '}
                     Journal
                   </Link>

@@ -35,10 +35,10 @@ class Results extends Component {
         return (
             <div className="results">
                 <div className="container">
-                    <div>
+                    <div className="graphSpacing">
                         <BloodGlucoseChart/>
                     </div>
-                    <div>
+                    <div className="graphSpacing">
                         <BodyWeightChart/>
                     </div>
                 </div>

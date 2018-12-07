@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Collapsible from 'react-collapsible';
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
@@ -16,7 +17,7 @@ class JournalEntry extends Component {
                 },
                 {
                     date: "12/2/2018",
-                    entry: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy ",
+                    entry: "Lorem Ipsum has been the industry's standard dummy ",
                     title: "Second Journal Entry"
                 },
             ]
@@ -44,22 +45,38 @@ class JournalEntry extends Component {
     render() {
         return (
             <div className="journal">
+
                 <div className="container">
-                    <div>
-                    </div>
+
                     {this.state.journalEntry.map(profile => (
-                        <div key={profile.date} className="card card-body bg-light mb-3">
-                            <div className="row">
-                                <div className="col-lg-6 col-md-4 col-8">
-                                    <h3>{profile.title}</h3>
-                                    <p>{profile.entry}</p>
+                        <div key={profile.date} id="accordian">
+                            
+                
+                            
+                            <div className="card">
+                                <div className="card-header" id={`heading${profile.date}`}>
+                                    <h5 className="mb-0">
+                                        <button className="btn btn-link" data-toggle="collapse" data-target={`#collapse${profile.date}`} aria-expanded="true" aria-controls={`collapse${profile.date}`}>
+                                            {profile.date}, {profile.title}
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id={`collapse${profile.date}`} className="collapse show" aria-labelledby={`heading${profile.date}`} data-parent="#accordion">
+                                    <div className="card-body">
+                                        {profile.entry}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                     ))}
+                    
                 </div>
+        
             </div>
+            
+
 
         );
     }

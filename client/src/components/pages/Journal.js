@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import DateTime from "../../components/pages/DatePicker";
 
 
-class Journal extends Component {
+class JournalForm extends Component {
     constructor() {
         super();
         this.state = {
@@ -39,9 +39,13 @@ class Journal extends Component {
                 </div>
                 <DateTime/>
                     <form>
+                    <div class="form-group">
+                            <textarea class="form-control" placeholder="Title of Entry?" id="journalEntry" rows="1"></textarea>
+                        </div>
                         <div class="form-group">
                             <textarea class="form-control" placeholder="How are you feeling today?" id="journalEntry" rows="15"></textarea>
                         </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
@@ -50,4 +54,4 @@ class Journal extends Component {
     }
 }
 
-export default Journal;
+export default JournalForm;

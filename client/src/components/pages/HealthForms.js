@@ -13,6 +13,7 @@ class HealthForms extends Component {
                 bodyWeight:"",
                 bloodGlucose:"",
                 bloodPressure:"",
+                dateTime:"",
                 redirectTo:null
               }
               
@@ -26,10 +27,11 @@ class HealthForms extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        const profile = {
+        const data = {
             bodyWeight: this.state.bodyWeight,
             bloodGlucose: this.state.bloodGlucose,
             bloodPressure: this.state.bloodPressure,
+            dateTime: this.state.dateTime
     
         }
     }
@@ -68,6 +70,7 @@ class HealthForms extends Component {
             <input type="number" class="form-control" id="inputBloodPressure" placeholder="mm Hg(lower)"></input>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     
         </div>

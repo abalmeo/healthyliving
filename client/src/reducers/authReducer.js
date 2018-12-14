@@ -1,12 +1,19 @@
+import { TEST_DISPATCH } from '../actions/types';
 const initialState = {
     isAuthenticate: false, 
-    user: {}
-}; 
+    user: {},
+
+};   
 
 
 export default function(state = initialState, action){
     switch(action.type){
-        case SET_CURRENT_USER:
+        case TEST_DISPATCH: 
+            return{
+                ...state,
+                //dispatching to reducer data that's passed in 
+                user: action.payload
+            }
          default:
           return state; 
     }

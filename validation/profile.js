@@ -22,7 +22,7 @@ module.exports = function validateProfileInput(data) {
   }
 
   if (Validator.isEmpty(data.bloodSugar)) {
-    errors.bloodSugar = 'Blood sugar are required';
+    errors.bloodSugar = 'Blood sugar is required';
   }
 
 

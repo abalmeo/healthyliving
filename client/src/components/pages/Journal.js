@@ -40,7 +40,7 @@ class JournalForm extends Component {
                 <DateTime/>
                     <form>
                     <div class="form-group">
-                            <textarea class="form-control" placeholder="Title of Entry?" id="journalEntry" rows="1"></textarea>
+                            <textarea class="form-control" placeholder="Title of Entry" id="journalEntry" rows="1"></textarea>
                         </div>
                         <div class="form-group">
                             <textarea class="form-control" placeholder="How are you feeling today?" id="journalEntry" rows="15"></textarea>

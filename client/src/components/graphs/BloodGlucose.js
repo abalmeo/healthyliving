@@ -39,6 +39,20 @@ class BloodGlucoseChart extends Component {
                             text: "Blood Glucose (mg/dL)",
                             fontSize: 15
                         },
+                        scales: {
+                            yAxes: [{
+                                scaleLabel: {
+                                  display: true,
+                                  labelString: 'mg/dL'
+                                }
+                              }],
+                              xAxes: [{
+                                scaleLabel: {
+                                  display: true,
+                                  labelString: 'Day'
+                                }
+                              }]
+                        },
                         legend: {
                             display: false,
                             position: 'right',

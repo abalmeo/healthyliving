@@ -46,3 +46,31 @@
 .graphSpacing{
   margin-bottom:80px;
 }
+
+
+/*
+######################################Journal Entry Styling
+######################################
+######################################
+*/
+.collapseStyling{
+  margin-bottom:20px;
+  border-style: solid;
+  border-width: 1px;
+  background-color: #267BB4; 
+  border-radius: 3px; 
+}
+
+.journalHeading{
+  text-align: center;
+  margin-bottom: 20px; 
+  font-size: 22px; 
+}
+
+
+
+/*
+######################################
+######################################
+######################################
+*/

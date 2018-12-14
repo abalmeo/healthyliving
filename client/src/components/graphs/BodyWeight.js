@@ -45,7 +45,21 @@ class BodyWeightChart extends Component {
                             display: false,
                             position: 'right',
                             title: 'Body Weight'
-                        }
+                        },
+                        scales: {
+                            yAxes: [{
+                                scaleLabel: {
+                                  display: true,
+                                  labelString: 'lbs'
+                                }
+                              }],
+                              xAxes: [{
+                                scaleLabel: {
+                                  display: true,
+                                  labelString: 'Day'
+                                }
+                              }]
+                        },
                     }}
 
                 />

@@ -10,7 +10,7 @@ class Results extends Component {
     constructor() {
         super();
         this.state = {
-            results:[]
+            results: []
         }
 
         this.onChange = this.onChange.bind(this);
@@ -36,18 +36,21 @@ class Results extends Component {
             <div className="results">
                 <div className="container">
                     <div className="graphSpacing">
-                        <BloodGlucoseChart/>
+                        <BloodGlucoseChart />
                     </div>
                     <div className="graphSpacing">
-                        <BodyWeightChart/>
+                        <BodyWeightChart />
                     </div>
                 </div>
-                <div className="container">
-                    <div>
-                        <JournalEntry/>
-                    </div>
+    
+
+            <div className="journalEntryAlignment col-sm-12">
+                <div>
+                    <JournalEntry />
                 </div>
             </div>
+            </div>            
+
 
         );
     }

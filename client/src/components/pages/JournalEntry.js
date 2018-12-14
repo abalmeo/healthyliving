@@ -46,31 +46,25 @@ class JournalEntry extends Component {
         return (
             <div className="journal">
 
-                <div className="container">
+                <div className="container journalEntryAlignment">
+                    <div className="journalHeading">
+                        Journal Entries
+                    </div>
 
-                    {this.state.journalEntry.map(profile => (
-                        <div key={profile.date} id="accordian">
-                            
-                
-                            
-                            <div className="card">
-                                <div className="card-header" id={`heading${profile.date}`}>
-                                    <h5 className="mb-0">
-                                        <button className="btn btn-link" data-toggle="collapse" data-target={`#collapse${profile.date}`} aria-expanded="true" aria-controls={`collapse${profile.date}`}>
-                                            {profile.date}, {profile.title}
-                                        </button>
-                                    </h5>
-                                </div>
-
-                                <div id={`collapse${profile.date}`} className="collapse show" aria-labelledby={`heading${profile.date}`} data-parent="#accordion">
-                                    <div className="card-body">
-                                        {profile.entry}
-                                    </div>
-                                </div>
+                    <div className>
+                        {this.state.journalEntry.map(profile => (
+                            <div key={profile.date} id="accordian">
+                                <Collapsible 
+                                className = "collapseStyling"
+                                trigger = {`Date: ${profile.date} Title: ${profile.title}`}
+                                transitionTime ='30'                           
+                                >
+                                    <p>{profile.entry}</p>
+                                </Collapsible>
                             </div>
-                        </div>
 
-                    ))}
+                        ))}
+                    </div>
                     
                 </div>
         

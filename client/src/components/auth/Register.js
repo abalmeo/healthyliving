@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'; 
 import classnames from 'classnames'; 
 import { connect } from 'react-redux'; 
+import { registerUser } from '../actions/authAction'; 
 
 class Register extends Component { 
     constructor(){ 
@@ -18,12 +19,29 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this); 
     }
 
+
+    
+      onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+      }
+    
+      onSubmit(e) {
+        e.preventDefault();
+    
+        const newUser = {
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password,
+          password2: this.state.password2
+        };
+    
+        this.props.registerUser(newUser, this.props.history);
+      }
+    
+
 render() {
 
     const { errors } = this.state;
-    if (this.state.redirectTo) {
-        return <Redirect to={{ pathname: this.state.redirectTo}} />
-      } else {
 
         return (
             <div>
@@ -92,7 +110,7 @@ render() {
             </div>
         );
     }
-}
+
 }
 
-export default Register;
+export default connect(null, {registerUser})(Register);

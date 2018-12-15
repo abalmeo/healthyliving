@@ -6,6 +6,7 @@ import HealthForms from "./components/pages/HealthForms";
 import Results from "./components/pages/Results";
 import JournalForm from "./components/pages/Journal";
 import Registration from "./components/pages/Registration";
+import Register from "./components/auth/Register";
 import {Provider} from "react-redux";
 import store from "./store";
 import './App.css';
@@ -25,6 +26,7 @@ class App extends Component {
             <Route exact path= "/registation" component={Registration} />
             <Route exact path= "/healthforms" component={HealthForms} />
             <Route exact path= "/journalform" component={JournalForm} />
+            <Route exact path= "/register" component={Register} />
           </div>
         </Router>
       </Provider>

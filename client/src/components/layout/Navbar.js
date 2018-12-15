@@ -46,6 +46,10 @@ render(){
                     {' '}
                     Journal
                   </Link>
+                  <Link className="navbar-brand" to="/register">
+                    {' '}
+                    Register
+                  </Link>
                 </div>
         </nav>
     )

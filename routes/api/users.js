@@ -11,6 +11,7 @@ const User = require('../../models/User');
 
 router.get('/test', (req, res) => res.json({ msg: "User Works"})); 
 
+/// POST api/users/register////
 router.post('/register', (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
   
@@ -24,7 +25,6 @@ router.post('/register', (req, res) => {
         errors.email = 'Email already exists';
         return res.status(400).json(errors);
       } else {
-
         const newUser = new User({
           name: req.body.name,
           email: req.body.email,
@@ -43,6 +43,29 @@ router.post('/register', (req, res) => {
         });
       }
     });
+  });
+
+
+  router.post('/login', (req, res) => {
+    const email = req.body.email; 
+    const password = req.body.password; 
+        //find unique user by email 
+    User.findOne({email})
+      .then(user => {
+        //Check for user
+        if(!user){
+          return res.json(404).json({email:'User not found'}); 
+        }
+        //Check Password
+        bcrypt.compare(password, user.password)
+          .then(isMatch => {
+          if(isMatch){
+            res.json({msg: 'Success'}); 
+          } else{
+            return res.status(400).json({password: 'Password incorrect'})
+          }
+          });
+      });
   });
 
   module.exports = router;

@@ -1,32 +1,33 @@
 const mongoose = require('mongoose'); 
 const Schema = mongoose.Schema; 
 
-const UserSchema = new Schema({
+const ProfileSchema = new Schema({
     date: {
         type: String, 
     }, 
-    bloodPressure: {
-        type: String, 
-        required: true,
-    },
-    bodyWeight: {
-        type: String, 
-        required: true
-    },
-    date: {
-        type: Date, 
-        default: Date.now
-    }
+    bloodPressure: [{
+        systolic: Number,
+        diastolic: Number,
+        date: Date
+    }],
+    bodyWeight: [{
+        weight: Number, 
+        date: Date
+    }],
+    bloodGlucose: [{
+        bg: Number, 
+        date: Date
+    }],
+    journal: [{
+        title: String,
+        entry: String,
+        date: Date, 
+    }]
 
 
 })
 
-UserSchema.virtual('profile', {
-    ref: 'profile', 
-    localField: 'user',
-    foreighnFielld: "id",
-    justOne: true
-})
 
-module.exports = User = mongoose.model('users', UserSchema);
+
+module.exports = User = mongoose.model('profile', ProfileSchema);
 

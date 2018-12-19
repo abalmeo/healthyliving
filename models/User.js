@@ -6,6 +6,10 @@ const UserSchema = new Schema({
         type: String, 
         required: true
     }, 
+    username: {
+        type: String, 
+        required: true
+    }, 
     email: {
         type: String, 
         required: true,
@@ -26,7 +30,7 @@ const UserSchema = new Schema({
 UserSchema.virtual('profile', {
     ref: 'profile', 
     localField: 'user',
-    foreighnFielld: "id",
+    foreignField: "id",
     justOne: true
 })
 

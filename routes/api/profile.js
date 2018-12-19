@@ -113,3 +113,5 @@ passport.authenticate('jwt', {session: false}),
 
 
 })
+
+module.exports = router;

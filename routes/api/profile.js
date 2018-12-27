@@ -47,7 +47,9 @@ passport.authenticate('jwt', {session: false}),
     const errors = {};
     
     let bodyWeight = {}; 
-    bodyWeights = req.body.bodyweight; 
+    let date = {}; 
+    bodyWeight = req.body.bodyweight; 
+    date = req.body.date; 
     Profile.findOne({email:req.body.email})
         .then(profile => {
             if(profile){
@@ -113,5 +115,20 @@ passport.authenticate('jwt', {session: false}),
 
 
 })
+
+//Get current user
+
+router.get(
+    '/current',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      res.json({
+        id: req.user.id,
+        name: req.user.name,
+        email: req.user.email
+      });
+    }
+  );
+
 
 module.exports = router;

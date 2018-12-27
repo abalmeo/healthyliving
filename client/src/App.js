@@ -8,6 +8,7 @@ import Results from "./components/pages/Results";
 import JournalForm from "./components/pages/Journal";
 import Registration from "./components/pages/Registration";
 import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
 import {Provider} from "react-redux";
 import store from "./store";
 import './App.css';
@@ -24,6 +25,7 @@ class App extends Component {
             <Navbar/>
             <Route exact path= "/" component={Landing} />
             <Route exact path= "/results" component={Results} />
+            <Route exact path= "/login" component={Login} />
             <Route exact path= "/registation" component={Registration} />
             <Route exact path= "/healthforms" component={HealthForms} />
             <Route exact path= "/journalform" component={JournalForm} />

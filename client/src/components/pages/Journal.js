@@ -39,13 +39,13 @@ class JournalForm extends Component {
                 </div>
                 <DateTime/>
                     <form>
-                    <div class="form-group">
-                            <textarea class="form-control" placeholder="Title of Entry" id="journalEntry" rows="1"></textarea>
+                    <div className="form-group">
+                            <textarea className="form-control" placeholder="Title of Entry" id="journalEntry" rows="1"></textarea>
                         </div>
-                        <div class="form-group">
-                            <textarea class="form-control" placeholder="How are you feeling today?" id="journalEntry" rows="15"></textarea>
+                        <div className="form-group">
+                            <textarea className="form-control" placeholder="How are you feeling today?" id="journalEntry" rows="15"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

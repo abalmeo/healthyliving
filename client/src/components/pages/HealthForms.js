@@ -47,30 +47,30 @@ class HealthForms extends Component {
 
         <form>
  
-        <div class="form-group row">
-            <label for="inputBodyWeight" class="col-sm-12 col-form-label">Body Weight</label>
-            <div class="col-sm-12">
-            <input type="number" class="form-control" id="inputBodyWeight" placeholder="Body Weight (lbs)"></input>
+        <div className="form-group row">
+            <label htmlFor="inputBodyWeight" className="col-sm-12 col-form-label">Body Weight</label>
+            <div className="col-sm-12">
+            <input type="number" className="form-control" id="inputBodyWeight" placeholder="Body Weight (lbs)"></input>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="inputBloodGlucose" class="col-sm-12 col-form-label">Blood Glucose</label>
-            <div class="col-sm-12">
-            <input type="number" class="form-control" id="inputBloodGlucose" placeholder="Blood Glucose (mg/dL)"></input>
+        <div className="form-group row">
+            <label htmlFor="inputBloodGlucose" className="col-sm-12 col-form-label">Blood Glucose</label>
+            <div className="col-sm-12">
+            <input type="number" className="form-control" id="inputBloodGlucose" placeholder="Blood Glucose (mg/dL)"></input>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="inputBloodPressure" class="col-sm-12 col-form-label">Blood Pressure</label>
-            <div class="col-sm-6">
-                <label for="inputBloodPressure" class="col-sm-6 col-form-label">Systolic</label>
-                <input type="number" class="form-control" id="inputBloodPressure" placeholder="mm Hg(higher)"></input>
+        <div className="form-group row">
+            <label htmlFor="inputBloodPressure" className="col-sm-12 col-form-label">Blood Pressure</label>
+            <div className="col-sm-6">
+                <label htmlFor="inputBloodPressure" className="col-sm-6 col-form-label">Systolic</label>
+                <input type="number" className="form-control" id="inputBloodPressure" placeholder="mm Hg(higher)"></input>
             </div>
-            <div class="col-sm-6">
-            <label for="inputBloodPressure" class="col-sm-6 col-form-label">Diastolic</label>
-            <input type="number" class="form-control" id="inputBloodPressure" placeholder="mm Hg(lower)"></input>
+            <div className="col-sm-6">
+            <label htmlFor="inputBloodPressure" className="col-sm-6 col-form-label">Diastolic</label>
+            <input type="number" className="form-control" id="inputBloodPressure" placeholder="mm Hg(lower)"></input>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
         </form>
     
         </div>

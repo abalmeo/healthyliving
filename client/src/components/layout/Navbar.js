@@ -1,61 +1,91 @@
-import React, {Component} from 'react'; 
-import {Link} from "react-router-dom";
-import Axios from 'axios'; 
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../actions/authActions';
 
-class Navbar extends Component{
-    constructor(){
-        super(); 
-        this.state = {
-            loggedin:false
-        }
-        this.logout = this.logout.bind(this); 
+class Navbar extends Component {
+    onLogoutClick(e) {
+        e.preventDefault();
+        this.props.logoutUser();
     }
-    
 
 
-componentDidMount(){
-    if (localStorage.getItem("token")) {
-        this.setState({loggedin:true})
-    }
-}
+    render() {
+        const { isAuthenticated, user } = this.props.auth;
 
-logout(){
-  localStorage.removeItem("token"); 
-  this.setState({loggedin:false}) 
-  delete Axios.default.headers.common['Authorization']; 
-}
+        const authLinks = (
+            <ul className="navbar-nav ml-auto">
+                <li className="navbar">
+                    <a
+                        href=""
+                        onClick={this.onLogoutClick.bind(this)}
+                        className="nav-link"
+                    >
+                        Logout
+              </a>
+                </li>
+            </ul>
+        );
 
-render(){
-    const isLoggedIn = this.state.loggedin;
-    return(
-        <nav className="navbar navbar-dark bg-primary">
-              <div>
-                  <Link className="navbar-brand" to="/">
-                    {' '}
-                    Home
+        const guestLinks = (
+            <ul className="navbar-nav ml-auto">
+                <li className="navbar">
+                    <Link className="navbar-brand" to="/register">
+                        Sign Up
+                </Link>
+                </li>
+                <li className="navbar">
+                    <Link className="navbar-brand" to="/login">
+                        Login
+              </Link>
+                </li>
+            </ul>
+        );
+
+        
+        return (
+            <nav className="navbar">
+                <div className="container">
+                    <Link className="navbar-brand" to="/">
+                        {' '}
+                        Home
                   </Link>
-                  <Link className="navbar-brand" to="/results">
-                    {' '}
-                    My Results
+
+                    <div>
+                        <Link className="navbar-brand" to="/results">
+                            {' '}
+                            My Results
                   </Link>
-                  <Link className="navbar-brand" to="/healthforms">
-                    {' '}
-                    Health Form
+                        <Link className="navbar-brand" to="/healthforms">
+                            {' '}
+                            Health Form
                   </Link>
-                  <Link className="navbar-brand" to="/journalform">
-                    {' '}
-                    Journal
+                        <Link className="navbar-brand" to="/journalform">
+                            {' '}
+                            Journal
                   </Link>
-                  <Link className="navbar-brand" to="/register">
-                    {' '}
-                    Register
-                  </Link>
+                        {isAuthenticated ? authLinks : guestLinks}
+
+                    </div>
                 </div>
-        </nav>
-    )
+            </nav>
+        )
+    }
 }
-}
-export default Navbar;
+
+
+Navbar.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, { logoutUser })(Navbar);
+
 
 
 

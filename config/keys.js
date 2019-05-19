@@ -6,6 +6,6 @@
   */
 
   module.exports = {
-    mongoURI: 'mongodb://Alvin:Alvin1@ds111562.mlab.com:11562/healthyliving',
+    mongoURI: 'mongodb://abalmeo:123456a@ds111562.mlab.com:11562/healthyliving',
     secretOrKey:'secret'
-}
+};

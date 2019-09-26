@@ -6,12 +6,12 @@ import DateTime from '../../components/pages/DatePicker';
 const HealthForms = () => {
   const [healthData, setHealthData] = useState({
     name: '',
-    bodyWeight: '',
-    bloodGlucose: '',
-    bloodPressure: '',
-    systolic: '',
-    diastolic: '',
-    dateTime: '',
+    bodyWeight: 1,
+    bloodGlucose: 2,
+    bloodPressure: 2,
+    systolic: 2,
+    diastolic: 2,
+    dateTime: 2,
     redirectTo: null
   });
   const {

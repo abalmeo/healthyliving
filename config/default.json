@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb://Alvin:Alvin1@ds111562.mlab.com:11562/healthyliving",
-  "secretOrKey": "secret"
+  "mongoURI": "mongodb+srv://alvin:alvin@cluster0-gcdik.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
 }

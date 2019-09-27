@@ -18,32 +18,43 @@ const Navbar = ({ auth: { isAuthenticated }, logoutUser }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to="/register">Sign Up</Link>
+        <Link className="navbar-brand" to="/register">
+          Sign Up
+        </Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link className="navbar-brand" to="/login">
+          Login
+        </Link>
       </li>
     </ul>
   );
 
   return (
-    <nav className="navbar">
-      <Link className="navbar-brand" to="/">
-        Home
-      </Link>
-
-      <Link className="navbar-brand" to="/results">
-        My Results
-      </Link>
-      <Link className="navbar-brand" to="/healthforms">
-        {' '}
-        Health Form
-      </Link>
-      <Link className="navbar-brand" to="/journalform">
-        {' '}
-        Journal
-      </Link>
-      {isAuthenticated ? authLinks : guestLinks}
+    <nav>
+      <ul className="user-navigation">
+        <li>
+          <Link className="navbar-brand" to="/">
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link className="navbar-brand" to="/results">
+            My Results
+          </Link>
+        </li>
+        <li>
+          <Link className="navbar-brand" to="/healthforms">
+            Health Form
+          </Link>
+        </li>
+        <li>
+          <Link className="navbar-brand" to="/journalform">
+            Journal
+          </Link>
+        </li>
+        {/* {isAuthenticated ? authLinks : guestLinks} */}
+      </ul>
     </nav>
   );
 };

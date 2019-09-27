@@ -6,6 +6,7 @@
     "axios": "^0.19.0",
     "chartjs-plugin-annotation": "^0.5.7",
     "classnames": "^2.2.6",
+    "eslint-plugin-react-hooks": "^2.0.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "react": "^16.9.0",
@@ -38,5 +39,6 @@
   "devDependencies": {
     "chart.js": "^2.7.3",
     "react-chartjs-2": "^2.7.4"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

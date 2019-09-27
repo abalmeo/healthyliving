@@ -36,3 +36,5 @@ router.get('/me', auth, async (req, res) => {
 // });
 
 // route POST @api/post/body
+
+module.exports = router;

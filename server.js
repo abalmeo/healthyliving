@@ -1,15 +1,17 @@
 const express = require('express');
+const connectDB = require('./config/db');
 const app = express();
-const connectDb = require('./config/db');
 const path = require('path');
+
+//Connect DB
+connectDB();
 
 // Initialize middleware
 app.use(express.json({ extended: false }));
 
 // Define routes
-app.use('/api/user', require('routes/api/user'));
-app.use('/api/auth', require('routes/api/auth'));
-app.use('/api/profile', require('routes/api/profile'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/profile', require('./routes/api/profile'));
 
 // Serve static assets
 if (process.env.NODE_ENV === 'production') {

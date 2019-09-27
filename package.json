@@ -18,6 +18,8 @@
     "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "config": "^3.2.2",
+    "eslint": "^6.4.0",
     "eslint-plugin-react-hooks": "^2.0.1",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
@@ -25,6 +27,7 @@
     "mongoose": "^5.7.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
     "request": "^2.88.0"
   },
   "devDependencies": {

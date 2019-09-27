@@ -6,12 +6,12 @@ import DateTime from '../../components/pages/DatePicker';
 const HealthForms = () => {
   const [healthData, setHealthData] = useState({
     name: '',
-    bodyWeight: 1,
-    bloodGlucose: 2,
-    bloodPressure: 2,
-    systolic: 2,
-    diastolic: 2,
-    dateTime: 2,
+    bodyWeight: '',
+    bloodGlucose: '',
+    bloodPressure: '',
+    systolic: '',
+    diastolic: '',
+    dateTime: '',
     redirectTo: null
   });
   const {
@@ -32,10 +32,10 @@ const HealthForms = () => {
   const onFormSubmit = e => {
     e.preventDefault();
     const data = {
-      bodyWeight: bodyWeight,
-      bloodGlucose: bloodGlucose,
-      bloodPressure: bloodPressure,
-      dateTime: dateTime
+      bodyWeight,
+      bloodGlucose,
+      bloodPressure,
+      dateTime
     };
     console.log('data', data);
   };
@@ -45,7 +45,7 @@ const HealthForms = () => {
       <div className="container">
         <DateTime />
 
-        <form onSubmit={e => onFormSubmit(e)}>
+        <form className="form" onSubmit={e => onFormSubmit(e)}>
           <div className="form-group row">
             <label
               htmlFor="inputBodyWeight"

@@ -1,42 +1,27 @@
-const express = require('express'); 
-const mongoose = require('mongoose'); 
-const bodyParser = require('body-parser');
-const passport = require('passport'); 
-const path = require('path'); 
+const express = require('express');
+const app = express();
+const connectDb = require('./config/db');
+const path = require('path');
 
-const users = require('./routes/api/users');
-const profile = require('./routes/api/profile');
+// Initialize middleware
+app.use(express.json({ extended: false }));
 
-const app = express(); 
+// Define routes
+app.use('/api/user', require('routes/api/user'));
+app.use('/api/auth', require('routes/api/auth'));
+app.use('/api/profile', require('routes/api/profile'));
 
-//Body parser middleware
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json()); 
+// Serve static assets
+if (process.env.NODE_ENV === 'production') {
+  // Set static doler
+  app.use(express.static('client/build'));
 
-//DB config
-const db = require('./config/keys').mongoURI; 
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
-//connect to mongoose 
-mongoose
-    .connect(db)
-    .then(()=>console.log('MongoDB Connected'))
-    .catch(err =>console.log(err)); 
-
-
-//Passport middleware 
-app.use(passport.initialize())
-
-//Passport Config JWT Strategy 
-require('./config/passport')(passport); 
-
-
-//Use Routes
-app.use('/api/users', users);
-app.use('/api/profile', profile);
-
-//Serve static assets if in production
-
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 //Start Server
-app.listen(port, () => console.log(`Serving running on port ${port}`));
+app.listen(PORT, () => console.log(`Serving running on port ${PORT}`));

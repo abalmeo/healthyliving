@@ -24,10 +24,12 @@ const ProfileSchema = new mongoose.Schema({
   bloodPressure: [
     {
       systolic: {
-        type: Number
+        type: Number,
+        required: true
       },
       diastolic: {
-        type: Number
+        type: Number,
+        required: true
       },
       date: {
         type: Date

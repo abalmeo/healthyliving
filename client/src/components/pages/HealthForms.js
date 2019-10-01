@@ -37,7 +37,6 @@ const HealthForms = () => {
       bloodPressure,
       dateTime
     };
-    console.log('data', data);
   };
 
   return (

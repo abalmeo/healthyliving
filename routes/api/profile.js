@@ -28,16 +28,34 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      const user = await User.findOne({ user: req.user.id }).select(
-        '-password'
-      );
+      const {
+        bloodGlucose,
+        bodyWeight,
+        bloodPressure,
+        journalEntry,
+      } = req.body;
+
+      const user = await User.findByIdAndUpdate({user: req.user.id});
+
+      if (user) {
+        const post = await Profile.findOne({user: req.user.id});
+        const profileFields = {};
+
+        if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
+        if (bodyWeight) profileFields.bodyWeight = bodyWeight;
+        if (bloodPressure) profileFields.bloodPressure = bloodPressure;
+        if (journalEntry) profileFields.journalEntry = journalEntry;
+
+      }
+
+      const post = await Profile.findById(req.params.id);
+
+      const updateProfile
 
       const { bloodGlucose, bodyWeight, bloodPressure, date } = req.body;
       const profileFields = {};
 
-      if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
-      if (bodyWeight) profileFields.bodyWeight = bodyWeight;
-      if (bloodPressure) profileFields.bloodPressure = bloodPressure;
+
 
       try {
         let profile = await Profile.findOne({

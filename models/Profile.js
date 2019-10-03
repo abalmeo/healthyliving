@@ -6,34 +6,58 @@ const ProfileSchema = new mongoose.Schema({
   },
   bloodGlucose: [
     {
-      type: Number,
-      date: Date
-    }
-  ],
-  bodyWeight: [
-    {
-      type: Number,
-      date: Date
-    }
-  ],
-  journalEntry: [
-    {
-      body: String
-    }
-  ],
-  bloodPressure: [
-    {
-      systolic: {
-        type: Number,
-        required: true
-      },
-      diastolic: {
-        type: Number,
-        required: true
+      value: {
+        type: Number
       },
       date: {
         type: Date
       }
+    }
+  ],
+  bodyWeight: [
+    {
+      value: {
+        type: Number
+      },
+      date: {
+        type: Date
+      }
+    }
+  ],
+  journalEntry: [
+    {
+      body: {
+        type: Number
+      },
+      date: {
+        type: Date
+      }
+    }
+  ],
+  bloodPressure: [
+    {
+      systolic: [
+        {
+          value: {
+            type: Number,
+            required: true
+          },
+          date: {
+            type: Date
+          }
+        }
+      ],
+      diastolic: [
+        {
+          value: {
+            type: Number,
+            required: true
+          },
+          date: {
+            type: Date
+          }
+        }
+      ]
     }
   ]
 });

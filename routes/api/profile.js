@@ -25,8 +25,6 @@ router.post('/', [auth], async (req, res) => {
     const profile = await Profile.findOne({ user: req.user.id });
 
     if (profile) {
-      console.log('profile', profile);
-      const profile = await Profile.findById(req.params.id);
       if (bloodGlucose) {
         profile.bloodGlucose.unshift(bloodGlucose);
       }
@@ -41,6 +39,7 @@ router.post('/', [auth], async (req, res) => {
       }
 
       await profile.save();
+      return res.json(profile);
     }
 
     // Else create a new profile for user
@@ -50,9 +49,7 @@ router.post('/', [auth], async (req, res) => {
     if (bodyWeight) profileFields.bodyWeight = bodyWeight;
     if (bloodPressure) profileFields.bloodPressure = bloodPressure;
     if (journalEntry) profileFields.journalEntry = journalEntry;
-    console.log('profileFields', profileFields);
     const newProfile = new Profile(profileFields);
-    console.log('newProfile', newProfile);
 
     await newProfile.save();
 

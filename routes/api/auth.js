@@ -23,6 +23,7 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// Sign in user
 router.post(
   '/',
   [

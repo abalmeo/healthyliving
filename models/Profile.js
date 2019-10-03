@@ -27,7 +27,7 @@ const ProfileSchema = new mongoose.Schema({
   journalEntry: [
     {
       body: {
-        type: Number
+        type: String
       },
       date: {
         type: Date
@@ -50,8 +50,7 @@ const ProfileSchema = new mongoose.Schema({
       diastolic: [
         {
           value: {
-            type: Number,
-            required: true
+            type: Number
           },
           date: {
             type: Date

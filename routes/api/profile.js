@@ -12,73 +12,56 @@ const User = require('../../models/User');
 // Create a post
 // Private
 
-router.post(
-  '/',
-  // [
-  //   auth,
-  //   [
-  //     check('test', 'Text is required')
-  //       .not()
-  //       .isEmpty()
-  //   ]
-  // ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    try {
-      const {
-        bloodGlucose,
-        bodyWeight,
-        bloodPressure,
-        journalEntry,
-      } = req.body;
+router.post('/', [auth], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  // console.log('req.body', req.body);
+  const { bloodGlucose, bodyWeight, bloodPressure, journalEntry } = req.body;
 
-      const user = await User.findByIdAndUpdate({user: req.user.id});
+  try {
+    // Check if a profile exists for user
+    const profile = await Profile.findOne({ user: req.user.id });
 
-      if (user) {
-        const post = await Profile.findOne({user: req.user.id});
-        const profileFields = {};
-
-        if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
-        if (bodyWeight) profileFields.bodyWeight = bodyWeight;
-        if (bloodPressure) profileFields.bloodPressure = bloodPressure;
-        if (journalEntry) profileFields.journalEntry = journalEntry;
-
+    if (profile) {
+      console.log('profile', profile);
+      const profile = await Profile.findById(req.params.id);
+      if (bloodGlucose) {
+        profile.bloodGlucose.unshift(bloodGlucose);
+      }
+      if (bodyWeight) {
+        profile.bodyWeight.unshift(bodyWeight);
+      }
+      if (bloodPressure) {
+        profile.bloodPressure.unshift(bloodPressure);
+      }
+      if (journalEntry) {
+        profile.journalEntry.unshift(journalEntry);
       }
 
-      const post = await Profile.findById(req.params.id);
-
-      const updateProfile
-
-      const { bloodGlucose, bodyWeight, bloodPressure, date } = req.body;
-      const profileFields = {};
-
-
-
-      try {
-        let profile = await Profile.findOne({
-          user: req.user.id
-        });
-
-        // Update
-        profile = await Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileFields },
-          { new: true }
-        );
-
-        return
-      } catch (err) {}
-
-      res.json(post);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
+      await profile.save();
     }
+
+    // Else create a new profile for user
+    const profileFields = {};
+    profileFields.user = req.user.id;
+    if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
+    if (bodyWeight) profileFields.bodyWeight = bodyWeight;
+    if (bloodPressure) profileFields.bloodPressure = bloodPressure;
+    if (journalEntry) profileFields.journalEntry = journalEntry;
+    console.log('profileFields', profileFields);
+    const newProfile = new Profile(profileFields);
+    console.log('newProfile', newProfile);
+
+    await newProfile.save();
+
+    res.json(newProfile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
   }
-);
+});
 
 //route      GET @api/profile/me
 //@desc      Get current users profile

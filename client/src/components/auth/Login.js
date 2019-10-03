@@ -1,107 +1,67 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import classnames from 'classnames';
 import { loginUser } from '../../actions/authActions';
+import PropTypes from 'prop-types';
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-      errors: {}
-    };
+const Login = ({ loginUser, isAuthenticated }) => {
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  });
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+  const { email, password } = loginData;
 
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
-  }
+  const onChange = e => {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
-
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
-
-  onSubmit(e) {
+  const onSubmit = e => {
     e.preventDefault();
+    loginUser(email, password);
+  };
 
-    const user = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    this.props.loginUser(user);
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  render() {
-    const { errors } = this.state;
-
-    return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <h1 className="display-4 text-center">Log In</h1>
-            <p className="lead text-center">
-              Sign in to your Healthy Living account
+  return (
+    <div className="login">
+      <div className="container">
+        <div className="row">
+          <h1 className="display-4 text-center">Log In</h1>
+          <p className="lead text-center">
+            Sign in to your Healthy Living account
+          </p>
+          <form onSubmit={e => onSubmit(e)}>
+            <div className="form-group">
+              <input
+                type="email"
+                placeholder="Email Address"
+                name="email"
+                value={email}
+                onChange={e => onChange(e)}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={e => onChange(e)}
+              />
+            </div>
+            <input type="submit" className="btn btn-info btn-block mt-4" />
+            <p className="my-1">
+              Don't have an account? <Link to="/register">Sign Up</Link>
             </p>
-            <form onSubmit={e => onSubmit(e)}>
-              <div className="form-group">
-                <input
-                  type="email"
-                  className={classnames('form-control form-control-lg', {
-                    'is-invalid': errors.email
-                  })}
-                  placeholder="Email Address"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                />
-                {errors.email && (
-                  <div className="invalid-feedback">{errors.email}</div>
-                )}
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className={classnames('form-control form-control-lg', {
-                    'is-invalid': errors.password
-                  })}
-                  placeholder="Password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                />
-                {errors.password && (
-                  <div className="invalid-feedback">{errors.password}</div>
-                )}
-              </div>
-              <input type="submit" className="btn btn-info btn-block mt-4" />
-              <p className="my-1">
-                Don't have an account? <Link to="/register">Sign Up</Link>
-              </p>
-            </form>
-          </div>
+          </form>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
@@ -110,8 +70,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(

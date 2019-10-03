@@ -57,6 +57,8 @@ const HealthForms = () => {
                 type="number"
                 className="form-control"
                 id="inputBodyWeight"
+                name="bodyWeight"
+                max="1500"
                 placeholder="Body Weight (lbs)"
                 value={bodyWeight}
                 onChange={e => onFormChange(e)}
@@ -75,6 +77,8 @@ const HealthForms = () => {
                 type="number"
                 className="form-control"
                 id="inputBloodGlucose"
+                name="bloodGlucose"
+                max="3000"
                 placeholder="Blood Glucose (mg/dL)"
                 value={bloodGlucose}
                 onChange={e => onFormChange(e)}
@@ -99,6 +103,8 @@ const HealthForms = () => {
                 type="number"
                 className="form-control"
                 id="inputBloodPressure"
+                name="systolic"
+                max="250"
                 placeholder="mm Hg(higher)"
                 value={systolic}
                 onChange={e => onFormChange(e)}
@@ -115,6 +121,8 @@ const HealthForms = () => {
                 type="number"
                 className="form-control"
                 id="inputBloodPressure"
+                name="diastolic"
+                max="140"
                 placeholder="mm Hg(lower)"
                 value={diastolic}
                 onChange={e => onFormChange(e)}

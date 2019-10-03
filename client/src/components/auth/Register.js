@@ -1,138 +1,93 @@
-import React, { Component } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import classnames from 'classnames';
-import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
 import { registerUser } from '../../actions/authActions';
+import { connect } from 'react-redux';
 
+const Register = ({ setAlert, registerUser, isAuthenticated }) => {
+  const [registerData, setRegisterData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password2: ''
+  });
 
-class Register extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: '',
-      email: '',
-      password: '',
-      password2: '',
-      errors: {}
-    };
+  const { name, email, password, password2 } = setRegisterData;
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+  const onChange = e => {
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+  };
 
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
-
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  onSubmit(e) {
+  const onSubmit = async e => {
     e.preventDefault();
 
-    const newUser = {
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2
-    };
+    if (password !== password2) {
+      setAlert('Passwords do not match', 'danger');
+    }
 
-    this.props.registerUser(newUser, this.props.history);
+    registerUser({ name, email, password });
+  };
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
   }
 
-  render() {
-    const { errors } = this.state;
-
-    return (
-      <div className="register">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your Healthy Living account
-              </p>
-              <form noValidate onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.name
-                    })}
-                    placeholder="Name"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                  />
-                  {errors.name && (
-                    <div className="invalid-feedback">{errors.name}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.email
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.password
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.password2
-                    })}
-                    placeholder="Confirm Password"
-                    name="password2"
-                    value={this.state.password2}
-                    onChange={this.onChange}
-                  />
-                  {errors.password2 && (
-                    <div className="invalid-feedback">{errors.password2}</div>
-                  )}
-                </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+  return (
+    <div className="register">
+      <div className="container">
+        <div className="row">
+          <h1 className="display-4 text-center">Sign Up</h1>
+          <p className="lead text-center">Create your Healthy Living account</p>
+          <form onSubmit={e => onSubmit(e)}>
+            <div className="form-group">
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                value={name}
+                onChange={e => onChange(e)}
+              />
             </div>
-          </div>
+            <div className="form-group">
+              <input
+                type="email"
+                placeholder="Email Address"
+                name="email"
+                value={email}
+                onChange={e => onChange(e)}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={e => onChange(e)}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                name="password2"
+                value={password2}
+                onChange={e => onChange(e)}
+              />
+            </div>
+            <input
+              type="submit"
+              className="btn btn-info btn-block mt-4"
+              value="Register"
+            />
+            Already have an account? <Link to="/login">Login</Link>
+          </form>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
@@ -145,4 +100,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default connect(
+  mapStateToProps,
+  { setAlert, registerUser }
+)(Register);

@@ -50,6 +50,8 @@ router.post(
           { $set: profileFields },
           { new: true }
         );
+
+        return
       } catch (err) {}
 
       res.json(post);

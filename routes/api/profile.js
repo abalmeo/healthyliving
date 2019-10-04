@@ -34,9 +34,6 @@ router.post('/', [auth], async (req, res) => {
       if (bloodPressure) {
         profile.bloodPressure.unshift(bloodPressure);
       }
-      if (journalEntry) {
-        profile.journalEntry.unshift(journalEntry);
-      }
 
       await profile.save();
       return res.json(profile);
@@ -48,7 +45,6 @@ router.post('/', [auth], async (req, res) => {
     if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
     if (bodyWeight) profileFields.bodyWeight = bodyWeight;
     if (bloodPressure) profileFields.bloodPressure = bloodPressure;
-    if (journalEntry) profileFields.journalEntry = journalEntry;
     const newProfile = new Profile(profileFields);
 
     await newProfile.save();
@@ -60,8 +56,51 @@ router.post('/', [auth], async (req, res) => {
   }
 });
 
+// route POST @api/post
+// Post journal entries
+// Private
+
+// TODO: Add validation for incoming data
+router.post('/journal', [auth], async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { journalEntry } = req.body;
+
+  try {
+    // Check if profile exists for user
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    if (profile) {
+      if (journalEntry) {
+        profile.journalEntry.unshift(journalEntry);
+      }
+
+      await profile.save();
+      return res.json(profile.journalEntry);
+    }
+
+    // Create a new profile if profile doesn't already exist
+    const profileFields = {};
+    profileFields.user = req.user.id;
+
+    // Create profile and add new journal entry
+    if (journalEntry) profileFields.journalEntry = journalEntry;
+    const newProfile = new Profile(profileFields);
+    await newProfile.save();
+
+    res.json(newProfile);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 //route      GET @api/profile/
-//@desc      Get current users profile
+//@desc      Get current users profile information
 //@access    Private
 
 router.get('/', auth, async (req, res) => {

@@ -8,16 +8,16 @@ const { check, validationResult } = require('express-validator');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-// route GET @api/post
-// Create a post
+// route POST @api/post
+// Post to profile
 // Private
 
+// TODO: Add validation for incoming data
 router.post('/', [auth], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  // console.log('req.body', req.body);
   const { bloodGlucose, bodyWeight, bloodPressure, journalEntry } = req.body;
 
   try {
@@ -54,6 +54,22 @@ router.post('/', [auth], async (req, res) => {
     await newProfile.save();
 
     res.json(newProfile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+//route      GET @api/profile/
+//@desc      Get current users profile
+//@access    Private
+
+router.get('/', auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    if (profile) {
+      return res.json(profile);
+    }
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

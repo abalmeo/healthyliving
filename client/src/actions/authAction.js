@@ -2,12 +2,12 @@ import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERROR, SET_CURRENT_USER } from './types';
+import { GET_ERROR, SET_CURRENT_USER, USER_LOADED, AUTH_ERROR } from './types';
 
 // Register User
 export const registerUser = userData => dispatch => {
   axios
-    .post('api/users/register', userData)
+    .post('api/user/register', userData)
     .then(res => console.log(res.data))
     .catch(err =>
       dispatch({
@@ -15,6 +15,26 @@ export const registerUser = userData => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+// Load user
+export const loadUser = () => async dispatch => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    const res = await axios.get('/api/auth');
+
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR
+    });
+  }
 };
 
 // Login - Get User Token

@@ -56,7 +56,7 @@ class App extends Component {
             <Route exact path="/about" component={About} />
             <Route exact path="/healthforms" component={HealthForms} />
             <Route exact path="/journalform" component={JournalForm} />
-            <div className="container">
+            <div>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
             </div>

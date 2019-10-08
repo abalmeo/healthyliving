@@ -29,7 +29,6 @@ export const getCurrentProfile = () => async dispatch => {
 // Create or Update Profile
 export const createProfile = (
   formData,
-  history,
   edit = false
 ) => async dispatch => {
   try {
@@ -47,10 +46,16 @@ export const createProfile = (
     });
       // If edit true, then profile updated otherwise profile is created
     dispatch(setAlert(edit? "Profile Updated": "Profile Created", "success"));
-    }
+    } catch (err) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach(error => dispatch(setAlert(error.msg,"danger")));
+      }
 
-
-  } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: {msg: err.response.statusText, status: err.response.status}
+      })
 
   }
 }
@@ -68,6 +73,21 @@ export const updateProfile = () => {
       type: PROFILE_ERROR,
       payload: {msg: err.response.statusText, status: err.response.status}
     })
+  }
+}
 
+export const updateJournal = () => {
+  try {
+    const res = await axios.post("/api/profile/journal");
+
+    dispatch({
+      type: UPDATE_JOURNAL,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {msg: err.response.statusText, status: err.response.status}
+    })
   }
 }

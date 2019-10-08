@@ -1,11 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
-import setAuthToken from './utils/setAuthToken';
-import { setCurrentUser, logoutUser } from './actions/authAction';
-
-import { Provider } from 'react-redux';
-import store from './store';
 
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
@@ -16,55 +10,44 @@ import HealthForms from './components/pages/HealthForms';
 import Results from './components/pages/Results';
 import JournalForm from './components/pages/Journal';
 import Registration from './components/pages/Registration';
-
 import Login from './components/auth/Login';
 
 import './App.css';
+import { Provider } from 'react-redux';
+import store from './store';
+import { loadUser } from './actions/authAction';
+import setAuthToken from './utils/setAuthToken';
 
 // Check for token
-if (localStorage.jwtToken) {
-  // Set auth token header auth
-  setAuthToken(localStorage.jwtToken);
-  // Decode token and get user info and exp
-  const decoded = jwt_decode(localStorage.jwtToken);
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
-
-  // Check for expired token
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser());
-    // TODO: Clear current Profile
-
-    // Redirect to login
-    window.location.href = '/login';
-  }
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
 }
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/results" component={Results} />
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
 
-            <Route exact path="/registation" component={Registration} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/healthforms" component={HealthForms} />
-            <Route exact path="/journalform" component={JournalForm} />
-            <div>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-            </div>
+  return (
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/results" component={Results} />
+
+          <Route exact path="/registation" component={Registration} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/healthforms" component={HealthForms} />
+          <Route exact path="/journalform" component={JournalForm} />
+          <div>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
           </div>
-        </Router>
-      </Provider>
-    );
-  }
-}
+        </div>
+      </Router>
+    </Provider>
+  );
+};
 
 export default App;

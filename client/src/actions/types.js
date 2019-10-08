@@ -13,5 +13,3 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const UPDATE_JOURNAL = 'UPDATE_JOURNAL';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE ';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
-export const POST_ERROR = 'POST_ERROR';
-export const GET_ERROR = 'POST_ERROR';

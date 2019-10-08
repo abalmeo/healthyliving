@@ -1,5 +1,3 @@
-import isEmpty from '../validation/is-empty';
-
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -37,12 +35,14 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false
       };
-
-    case SET_CURRENT_USER:
+    case AUTH_ERROR:
+    case LOGIN_FAIL:
+    case LOGOUT:
+    case REGISTER_FAIL:
       return {
         ...state,
-        isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        isAuthenticated: false,
+        loading: false
       };
     default:
       return state;

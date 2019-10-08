@@ -10,7 +10,7 @@ import {
 } from './types';
 
 // Get user profile
-export const getCurrentProfile = () => {
+export const getCurrentProfile = () => async dispatch => {
   try {
     const res = await axios.get("/api/profile/");
 
@@ -25,6 +25,35 @@ export const getCurrentProfile = () => {
     });
   }
 };
+
+// Create or Update Profile
+export const createProfile = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const res = await axios.post("/api/profile", formData, config);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+      // If edit true, then profile updated otherwise profile is created
+    dispatch(setAlert(edit? "Profile Updated": "Profile Created", "success"));
+    }
+
+
+  } catch (err) {
+
+  }
+}
 
 export const updateProfile = () => {
   try {

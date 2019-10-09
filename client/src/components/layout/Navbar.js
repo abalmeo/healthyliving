@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authAction';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
+const Navbar = ({ authReducer: { isAuthenticated, loading }, logoutUser }) => {
   const authLinks = (
     <ul className="user-navigation">
       <li>
@@ -21,7 +21,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
       </li>
       <li>
         <a href="#!" onClick={logoutUser}>
-          Logout
+          <span> Logout </span>
         </a>
       </li>
     </ul>
@@ -57,7 +57,7 @@ Navbar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.authReducer
 });
 
 export default connect(

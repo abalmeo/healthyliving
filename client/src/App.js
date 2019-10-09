@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navbar from './components/layout/Navbar';
@@ -31,7 +31,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <div className="App">
+        <Fragment>
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/results" component={Results} />
@@ -44,7 +44,7 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
-        </div>
+        </Fragment>
       </Router>
     </Provider>
   );

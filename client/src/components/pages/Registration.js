@@ -4,6 +4,7 @@ import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Register from '../auth/Register';
 
 const Registration = ({ setAlert, register, isAuthenticated }) => {
   const [registrationForm, setRegistrationForm] = useState({
@@ -94,4 +95,17 @@ const Registration = ({ setAlert, register, isAuthenticated }) => {
   );
 };
 
-export default Registration;
+Register.PropTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { setAlert, register }
+)(Register);

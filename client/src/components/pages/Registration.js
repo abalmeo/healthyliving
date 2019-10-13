@@ -1,46 +1,97 @@
-import React, { Component } from 'react';
-import axios from "axios";
-import { Redirect } from "react-router-dom";
+import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+const Registration = ({ setAlert, register, isAuthenticated }) => {
+  const [registrationForm, setRegistrationForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password2: ''
+  });
 
+  const { name, email, password, password2 } = registrationForm;
 
-class Registration extends Component {
-    constructor() {
-        super();
-        this.state = {
-            profile:[]
-        }
+  const onChange = e => {
+    setRegistrationForm({
+      ...registrationForm,
+      [e.target.name]: e.target.value
+    });
+  };
 
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+  onSubmit = e => {
+    e.preventDefault();
+    if (password !== password2) {
+      setAlert('Passwords do not match', 'danger');
+    } else {
+      register({ name, email, password });
     }
+  };
 
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
-    }
+  // Redirec tto dashboard if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
-    onSubmit(e) {
-        e.preventDefault();
-        const entry = {
-            profile: this.state.profile,
-        }
-    }
-
-
-
-
-    render() {
-        return (
-            <div className="registration">
-                <div className="container">
-                    <div>
-                        Registration Page
-                    </div>
-                </div>
-            </div>
-
-        );
-    }
-}
+  return (
+    <>
+      <h1>Sign Up</h1>
+      <p>
+        <i>Create Your Account</i>
+      </p>
+      <form onSubmit={e => onSubmit(e)}>
+        <div>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            value={name}
+            onChange={e => onChange(e)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Email Address"
+            name="email"
+            value={email}
+            onChange={e => onChange(e)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            minLength="6"
+            value={password}
+            onChange={e => onChange(e)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            name="password2"
+            minLength="6"
+            value={password2}
+            onChange={e => onChange(e)}
+            required
+          />
+        </div>
+        <input type="submit" value="Register" />
+        <p>
+          Already have an account? <link to="/login">Sign In</link>
+        </p>
+      </form>
+    </>
+  );
+};
 
 export default Registration;

@@ -9,7 +9,6 @@ import About from './components/pages/About';
 import HealthForms from './components/pages/HealthForms';
 import Results from './components/pages/Results';
 import JournalForm from './components/pages/Journal';
-import Registration from './components/pages/Registration';
 import Login from './components/auth/Login';
 
 import './App.css';
@@ -36,7 +35,6 @@ const App = () => {
           <Route exact path="/" component={Landing} />
           <Route exact path="/results" component={Results} />
 
-          <Route exact path="/registation" component={Registration} />
           <Route exact path="/about" component={About} />
           <Route exact path="/healthforms" component={HealthForms} />
           <Route exact path="/journalform" component={JournalForm} />

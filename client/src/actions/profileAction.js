@@ -8,7 +8,7 @@ import {
   CLEAR_PROFILE,
   UPDATE_JOURNAL
 } from './types';
-
+re
 // Get user profile
 export const getCurrentProfile = () => async dispatch => {
   try {

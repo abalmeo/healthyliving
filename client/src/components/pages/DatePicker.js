@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import DateTimePicker from 'react-datetime-picker';
+const DateTime = () => {
+  const [currentTime, setCurrentTime] = useState({
+    date: 'test'
+  });
 
-class DateTime extends Component {
-  state = {
-    date: new Date(),
-  }
+  const { date } = setCurrentTime;
 
-  onChange = date => this.setState({ date })
+  const onChange = e => {
+    setCurrentTime({ ...currentTime, date: date });
+  };
 
-  render() {
-    return (
-      <div>
-        <DateTimePicker
-          onChange={this.onChange}
-          value={this.state.date}
-          className="dateSpacing"
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <>
+      <DateTimePicker
+        onChange={e => onChange(e)}
+        value={date}
+        className="dateSpacing"
+      />
+    </>
+  );
+};
 export default DateTime;

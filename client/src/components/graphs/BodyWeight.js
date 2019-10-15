@@ -5,6 +5,7 @@ import 'chartjs-plugin-annotation';
 
 const BodyWeightChart = () => {
   const [bodyWeightValues, setBodyWeightValues] = useState({
+    // TODO: update with useEffect and real data once functionality is finished; mockdata for now
     bodyWeight: [
       {
         date: '12/1/2018',

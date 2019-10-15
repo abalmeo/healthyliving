@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 const DateTime = () => {
   const [currentTime, setCurrentTime] = useState({
-    date: 'test'
+    date: Date.now()
   });
 
   const { date } = setCurrentTime;

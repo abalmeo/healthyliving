@@ -7,35 +7,36 @@ import { connect } from 'react-redux';
 import JournalEntry from '../../components/pages/JournalEntry';
 
 const Results = ({ isAuthenticated }) => {
-  if (!isAuthenticated) {
-    return <Redirect to="/login" />;
-  } else {
-    return (
-      <div className="results">
-        <div className="container">
-          <div className="graphSpacing">
-            <BloodGlucoseChart />
-          </div>
-          <div className="graphSpacing">
-            <BodyWeightChart />
-          </div>
+  console.log('isAuthenticated', isAuthenticated);
+  // if (!isAuthenticated) {
+  //   return <Redirect to="/login" />;
+  // } else {
+  return (
+    <div className="results">
+      <div className="container">
+        <div className="graphSpacing">
+          <BloodGlucoseChart />
         </div>
-
-        <div className="journalEntryAlignment col-sm-12">
-          <div>
-            <JournalEntry />
-          </div>
+        <div className="graphSpacing">
+          <BodyWeightChart />
         </div>
       </div>
-    );
-  }
+
+      <div className="journalEntryAlignment col-sm-12">
+        <div>
+          <JournalEntry />
+        </div>
+      </div>
+    </div>
+  );
 };
+// };
 
 Results.propTypes = {
   isAuthenticated: PropTypes.bool
 };
 
-const mapStateToProps = (state = {
+const mapStateToProps = state => ({
   isAuthenticated: state.isAuthenticated
 });
 

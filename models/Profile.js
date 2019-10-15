@@ -26,6 +26,9 @@ const ProfileSchema = new mongoose.Schema({
   ],
   journalEntry: [
     {
+      title: {
+        type: String
+      },
       body: {
         type: String
       },

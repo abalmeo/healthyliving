@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
-import DateTimePicker from 'react-datetime-picker';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
+
 const DateTime = () => {
-  const [currentTime, setCurrentTime] = useState({
-    date: Date.now()
-  });
-
-  const { date } = setCurrentTime;
-
-  const onChange = e => {
-    setCurrentTime({ ...currentTime, date: date });
-  };
-
+  const [startDate, setStartDate] = useState(new Date());
   return (
     <>
-      <DateTimePicker
-        onChange={e => onChange(e)}
-        value={date}
-        className="dateSpacing"
+      <DatePicker
+        selected={startDate}
+        onChange={date => setStartDate(date)}
+        showTimeSelect
+        timeFormat="HH:mm"
+        timeIntervals={15}
+        timeCaption="time"
+        dateFormat="MMMM d, yyyy h:mm aa"
       />
     </>
   );

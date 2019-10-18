@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Redirect } from 'react-router-dom';
-import DateTime from '../../components/pages/DatePicker';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
 
 const HealthForms = () => {
   const [healthData, setHealthData] = useState({
-    name: '',
     bodyWeight: '',
     bloodGlucose: '',
     bloodPressure: '',
     systolic: '',
     diastolic: '',
-    dateTime: '',
-    redirectTo: null
+    dateTime: ''
   });
   const {
-    name,
     bodyWeight,
     bloodGlucose,
     bloodPressure,
     systolic,
     diastolic,
-    dateTime,
-    redirectTo
+    dateTime
   } = healthData;
+
+  const [startDate, setStartDate] = useState(new Date());
 
   const onFormChange = e => {
     setHealthData({ ...healthData, [e.target.name]: e.target.value });
@@ -42,9 +40,16 @@ const HealthForms = () => {
   return (
     <div className="healthforms">
       <div className="container">
-        <DateTime />
-
         <form className="form" onSubmit={e => onFormSubmit(e)}>
+          <DatePicker
+            selected={startDate}
+            onChange={date => setStartDate(date)}
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            timeCaption="time"
+            dateFormat="MMMM d, yyyy h:mm aa"
+          />
           <div className="form-group row">
             <label
               htmlFor="inputBodyWeight"

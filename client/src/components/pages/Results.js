@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import BloodGlucoseChart from '../../components/graphs/BloodGlucose';
-import PropTypes from 'prop-types';
 import BodyWeightChart from '../../components/graphs/BodyWeight';
-import { connect } from 'react-redux';
+import BloodPressurechart from '../../components/graphs/BloodPressure';
 import JournalEntry from '../../components/pages/JournalEntry';
+
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const Results = ({ isAuthenticated }) => {
   console.log('isAuthenticated', isAuthenticated);
@@ -14,6 +16,9 @@ const Results = ({ isAuthenticated }) => {
   return (
     <div className="results">
       <div className="container">
+        <div className="graphSpacing">
+          <BloodPressurechart />
+        </div>
         <div className="graphSpacing">
           <BloodGlucoseChart />
         </div>

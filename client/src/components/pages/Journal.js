@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import DateTime from '../../components/pages/DatePicker';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
 
 const JournalForm = () => {
   const [journalEntry, setJournalEntry] = useState({
-    date: Date.now(),
     entryTitle: '',
     entry: ''
   });
 
-  const { date, entryTitle, entry } = journalEntry;
+  const { entryTitle, entry } = journalEntry;
+  const [date, setDate] = useState(new Date());
 
   const onChange = e => {
     setJournalEntry({ ...journalEntry, [e.target.name]: e.target.value });
@@ -17,15 +18,25 @@ const JournalForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    // TODO: add journal entry functionality
+    console.log('this is a test');
+    let data = {
+      entryTitle,
+      entry,
+      date
+    };
+
+    console.log(data);
   };
 
   return (
     <div className="journal">
       <div className="container">
-        <div></div>
-        <DateTime />
         <form onSubmit={e => onSubmit(e)}>
+          <DatePicker
+            name="date"
+            selected={date}
+            onChange={date => setDate(date)}
+          />
           <div className="form-group">
             <input
               type="text"

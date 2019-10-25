@@ -4,6 +4,12 @@
   text-align: center;
 }
 
+.landing {
+  position: relative;
+  background: url('./images/About.jpg') no-repeat center center/cover;
+  height: 100vh;
+}
+
 .user-navigation {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -11,6 +17,7 @@
 }
 nav li {
   display: flex;
+  list-style: none;
 }
 
 nav ul li {

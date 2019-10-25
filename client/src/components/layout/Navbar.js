@@ -6,58 +6,51 @@ import { logoutUser } from '../../actions/authAction';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
   const authLinks = (
-    <ul className="user-navigation">
-      <li>
-        <Link style={{ textDecoration: 'none' }} to="/">
-          Home
-        </Link>
-      </li>
-      <li>
-        <Link style={{ textDecoration: 'none' }} to="/results">
-          My Results
-        </Link>
-      </li>
-      <li>
-        <Link style={{ textDecoration: 'none' }} to="/healthforms">
-          Health Form
-        </Link>
-      </li>
-      <li>
-        <Link style={{ textDecoration: 'none' }} to="/journalform">
-          Journal
-        </Link>
-      </li>
-      <li>
-        <a href="#!" onClick={logoutUser}>
-          <span> Logout </span>
-        </a>
-      </li>
-    </ul>
+    <div className="right-navigation">
+      <ul className="user-navigation">
+        <li>
+          <Link style={{ textDecoration: 'none' }} to="/results">
+            My Results
+          </Link>
+        </li>
+        <li>
+          <Link style={{ textDecoration: 'none' }} to="/healthforms">
+            Health Form
+          </Link>
+        </li>
+        <li>
+          <Link style={{ textDecoration: 'none' }} to="/journalform">
+            Journal
+          </Link>
+        </li>
+        <li className="login-register">
+          <a style={{ textDecoration: 'none' }} href="#!" onClick={logoutUser}>
+            <span> Logout </span>
+          </a>
+        </li>
+      </ul>
+    </div>
   );
-
   const guestLinks = (
-    <ul className="user-navigation">
-      <li>
-        <Link style={{ textDecoration: 'none' }} to="/">
-          Healthy Living
-        </Link>
-      </li>
-      <li>
-        <Link style={{ textDecoration: 'none' }} to="/register">
-          Sign Up
-        </Link>
-      </li>
-      <li>
-        <Link style={{ textDecoration: 'none' }} to="/login">
-          Login
-        </Link>
-      </li>
-      <li>
-        <Link style={{ textDecoration: 'none' }} to="/about">
-          About
-        </Link>
-      </li>
-    </ul>
+    <div className="right-navigation">
+      <ul className="user-navigation">
+        <li>
+          <Link style={{ textDecoration: 'none' }} to="/">
+            Healthy Living
+          </Link>
+        </li>
+        <li>
+          <Link style={{ textDecoration: 'none' }} to="/about">
+            About
+          </Link>
+        </li>
+        <li className="login-register">
+          <Link style={{ textDecoration: 'none' }} to="/login">
+            Login
+          </Link>
+        </li>
+      </ul>
+    </div>
   );
 
   return (

@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
 }
+
 .App {
   background-color: #e0f2e5;
   height: 100vh;
@@ -20,13 +21,9 @@
 /*
   Navigation Start
 */
-
 nav {
   background-color: #24252a;
-  display: flex-end;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 10%;
+  padding: 1% 8%;
   text-decoration: none;
 }
 
@@ -36,7 +33,7 @@ nav li {
   padding: 0px 20px;
 }
 
-nav li::after {
+nav li:not(:last-of-type)::after {
   content: '';
   display: block;
   width: 0;
@@ -45,10 +42,10 @@ nav li::after {
   transition: width 0.3s;
 }
 
-nav li:hover::after {
+/* Underline navigation link on hover */
+nav li:hover:not(:last-of-type)::after {
   width: 100%;
-
-  transition: width 0.3s;
+  transition: width 0.4s;
 }
 
 .user-navigation {
@@ -56,13 +53,26 @@ nav li:hover::after {
   font-weight: 500;
   font-size: 16px;
   color: #edf0f1;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.center-navigation {
-  align-items: center;
-  text-decoration: none;
+.login-register {
+  margin-left: 2%;
+  padding: 0px 15px;
+  background-color: #5ac0de;
+  color: white;
+  border: none;
+  content: none;
+  border-radius: 10px;
 }
 
+/* Darken navigation link on hover */
+.login-register:hover {
+  background-color: #5ac0de;
+  opacity: 0.6;
+  transition: opacity 0.4s;
+}
 /*
   Navigation End
 */

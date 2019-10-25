@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Collapsible from 'react-collapsible';
 
 const JournalEntry = entries => {
-  // TODO: add useEffect for when props update
+  // TODO: add useEffect for when props updatet
   const journalEntry = [
     {
       date: '12/3/2018',

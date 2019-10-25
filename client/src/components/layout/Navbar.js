@@ -8,16 +8,24 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
   const authLinks = (
     <ul className="user-navigation">
       <li>
-        <Link to="/">Home</Link>
+        <Link style={{ textDecoration: 'none' }} to="/">
+          Home
+        </Link>
       </li>
       <li>
-        <Link to="/results">My Results</Link>
+        <Link style={{ textDecoration: 'none' }} to="/results">
+          My Results
+        </Link>
       </li>
       <li>
-        <Link to="/healthforms">Health Form</Link>
+        <Link style={{ textDecoration: 'none' }} to="/healthforms">
+          Health Form
+        </Link>
       </li>
       <li>
-        <Link to="/journalform">Journal</Link>
+        <Link style={{ textDecoration: 'none' }} to="/journalform">
+          Journal
+        </Link>
       </li>
       <li>
         <a href="#!" onClick={logoutUser}>
@@ -28,22 +36,33 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
   );
 
   const guestLinks = (
-    <ul>
+    <ul className="user-navigation">
       <li>
-        <Link to="/register">Sign Up</Link>
+        <Link style={{ textDecoration: 'none' }} to="/">
+          Healthy Living
+        </Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
-        <Link to="/about">About</Link>
+        <Link style={{ textDecoration: 'none' }} to="/register">
+          Sign Up
+        </Link>
+      </li>
+      <li>
+        <Link style={{ textDecoration: 'none' }} to="/login">
+          Login
+        </Link>
+      </li>
+      <li>
+        <Link style={{ textDecoration: 'none' }} to="/about">
+          About
+        </Link>
       </li>
     </ul>
   );
 
   return (
     <nav>
-      <h1>
-        <Link to="/">Healthy Living</Link>
-      </h1>
+      <l></l>
       {!loading && (
         <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
       )}

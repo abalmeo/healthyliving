@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 .App {
   background-color: #e0f2e5;
   height: 100vh;
@@ -10,38 +17,55 @@
   height: 100vh;
 }
 
-.user-navigation {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 150px;
-}
-nav li {
-  display: flex;
-  list-style: none;
-}
+/*
+  Navigation Start
+*/
 
-nav ul li {
-  flex-wrap: wrap;
-}
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+nav {
+  background-color: #24252a;
+  display: flex-end;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px 10%;
+  text-decoration: none;
 }
 
-.App-link {
-  color: #61dafb;
+nav li {
+  list-style: none;
+  display: inline-block;
+  padding: 0px 20px;
 }
+
+nav li::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 0.3s;
+}
+
+nav li:hover::after {
+  width: 100%;
+
+  transition: width 0.3s;
+}
+
+.user-navigation {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #edf0f1;
+}
+
+.center-navigation {
+  align-items: center;
+  text-decoration: none;
+}
+
+/*
+  Navigation End
+*/
 
 .dateSpacing {
   padding: 2.5rem 0rem;

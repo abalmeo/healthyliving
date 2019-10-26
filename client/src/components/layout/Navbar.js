@@ -23,6 +23,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
             Journal
           </Link>
         </li>
+        <li>
+          <Link style={{ textDecoration: 'none' }} to="/journalentries">
+            Journal Entries
+          </Link>
+        </li>
         <li className="login-register">
           <a style={{ textDecoration: 'none' }} href="#!" onClick={logoutUser}>
             <span> Logout </span>

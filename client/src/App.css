@@ -120,6 +120,19 @@ nav li:hover:not(:last-of-type)::after {
   margin-left: 50px;
 }
 
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
 #main {
   transition: margin-left 0.5s; /* If you want a transition effect */
   padding: 20px;

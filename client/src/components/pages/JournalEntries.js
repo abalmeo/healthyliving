@@ -4,7 +4,7 @@ import JournalEntry from './JournalEntry';
 const JournalEntries = () => {
   // TODO: set up retreival of journal entries using useEffect then fill in state
 
-  const journalEntry = [
+  const mockData = [
     {
       date: '12/3/2018',
       entry:
@@ -15,24 +15,27 @@ const JournalEntries = () => {
       date: '12/2/2018',
       entry: "Lorem Ipsum has been the industry's standard dummy ",
       title: 'Second Journal Entry'
+    },
+    {
+      date: '12/4/2018',
+      entry: "Lorem Ipsum has been the industry's standard dummy ",
+      title: 'Second Journal Entry'
     }
   ];
 
   const [journalEntries, setJournalEntries] = useState({
-    entries: [],
-    currentEntry: journalEntry[0]
+    entries: mockData,
+    currentEntry: [mockData[0]]
   });
 
   const { entries, currentEntry } = journalEntries;
 
   const entrySelect = entry => {
     setJournalEntries({ ...journalEntries, currentEntry: entry });
-    console.log('entry', entry);
-    console.log(currentEntry);
   };
 
   const [sideBar, setSideBar] = useState({
-    open: false,
+    open: true,
     width: 0,
     marginLeft: 0
   });
@@ -60,8 +63,11 @@ const JournalEntries = () => {
   return (
     <>
       <div style={sideBarStyle} className="sidebar">
-        {journalEntry.map(entry => (
-          <button className="btn" onClick={() => entrySelect(entry)}>
+        <button className="btn" onClick={() => entrySelect(mockData)}>
+          <span>View All Entries</span>
+        </button>
+        {mockData.map(entry => (
+          <button className="btn" onClick={() => entrySelect([entry])}>
             <span>
               {entry.date} : {entry.title}
             </span>
@@ -71,7 +77,7 @@ const JournalEntries = () => {
 
       <div style={mainStyle} className="main">
         <button className="openbtn" onClick={e => toggleSideBar(e)}>
-          &#9776; View Journal Entries
+          <span>{open ? 'View More Entries' : 'Minimize'}</span>
         </button>
         <JournalEntry entry={currentEntry} />
       </div>

@@ -63,11 +63,11 @@ const JournalEntries = () => {
   return (
     <>
       <div style={sideBarStyle} className="sidebar">
-        <button className="btn" onClick={() => entrySelect(mockData)}>
+        <button onClick={() => entrySelect(mockData)}>
           <span>View All Entries</span>
         </button>
         {mockData.map(entry => (
-          <button className="btn" onClick={() => entrySelect([entry])}>
+          <button onClick={() => entrySelect([entry])}>
             <span>
               {entry.date} : {entry.title}
             </span>
@@ -77,7 +77,7 @@ const JournalEntries = () => {
 
       <div style={mainStyle} className="main">
         <button className="openbtn" onClick={e => toggleSideBar(e)}>
-          <span>{open ? 'View More Entries' : 'Minimize'}</span>
+          <i className="fas fa-bars" />
         </button>
         <JournalEntry entry={currentEntry} />
       </div>

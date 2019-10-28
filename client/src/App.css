@@ -106,22 +106,19 @@ nav li:hover:not(:last-of-type)::after {
   color: white;
   display: block;
   transition: 0.3s;
+  outline: none;
+  border: none;
 }
 
 .sidebar button:hover {
   color: #327ab7;
 }
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+.sidebar button:focus {
+  color: #327ab7;
 }
 
 .openbtn {
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
   background-color: #23242a;
   color: white;
@@ -136,16 +133,17 @@ nav li:hover:not(:last-of-type)::after {
 }
 
 .main {
-  transition: margin-left 0.5s; /* If you want a transition effect */
+  transition: margin-left 0.5s;
   padding: 20px;
+}
+
+.main button {
+  outline: none;
 }
 
 @media screen and (max-height: 450px) {
   .sidebar {
     padding-top: 15px;
-  }
-  .sidebar a {
-    font-size: 18px;
   }
 }
 

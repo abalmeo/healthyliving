@@ -18,7 +18,6 @@ const JournalForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log('this is a test');
     let data = {
       entryTitle,
       entry,

@@ -87,6 +87,24 @@ nav li:hover:not(:last-of-type)::after {
 ##################
 */
 
+#mySideBarOpen {
+  width: 250px;
+}
+
+#mySideBarClose {
+  width: 0px;
+}
+
+#mainOpen {
+  width: 250px;
+  margin-left: 250px;
+}
+
+#mainClose {
+  width: 0x;
+  margin-left: 0px;
+}
+
 .sidebar {
   height: 100%;
   width: 0;
@@ -133,7 +151,7 @@ nav li:hover:not(:last-of-type)::after {
   background-color: #444;
 }
 
-#main {
+.main {
   transition: margin-left 0.5s; /* If you want a transition effect */
   padding: 20px;
 }

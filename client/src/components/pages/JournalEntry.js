@@ -1,36 +1,16 @@
-import React, { useEffect } from 'react';
-import Collapsible from 'react-collapsible';
+import React from 'react';
 
-const JournalEntry = entries => {
-  // TODO: add useEffect for when props updatet
-  const journalEntry = [
-    {
-      date: '12/3/2018',
-      entry:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy ",
-      title: 'First Journal Entry'
-    },
-    {
-      date: '12/2/2018',
-      entry: "Lorem Ipsum has been the industry's standard dummy ",
-      title: 'Second Journal Entry'
-    }
-  ];
+const JournalEntry = ({ entries }) => {
+  console.log('entries', entries);
   return (
     <div className="journal">
       <div className="container journalEntryAlignment">
         <div className="journalHeading">Journal Entries</div>
 
         <div className>
-          {journalEntry.map(profile => (
+          {entries.map(profile => (
             <div key={profile.date} id="accordian">
-              <Collapsible
-                className="collapseStyling"
-                trigger={`Date: ${profile.date} Title: ${profile.title}`}
-                transitionTime="30"
-              >
-                <p>{profile.entry}</p>
-              </Collapsible>
+              <p>{profile.entry}</p>
             </div>
           ))}
         </div>

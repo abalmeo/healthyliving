@@ -1,28 +1,52 @@
 import React, { useState } from 'react';
+import JournalEntry from './JournalEntry';
 
-const JournalEntries = entries => {
+const JournalEntries = () => {
+  const [journalEntries, setJournalEntries] = useState({});
+
+  const journalEntry = [
+    {
+      date: '12/3/2018',
+      entry:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy ",
+      title: 'First Journal Entry'
+    },
+    {
+      date: '12/2/2018',
+      entry: "Lorem Ipsum has been the industry's standard dummy ",
+      title: 'Second Journal Entry'
+    }
+  ];
+
   const [sideBar, setSideBar] = useState({
+    open: false,
     width: 0,
     marginLeft: 0
   });
 
-  const { width, marginLeft } = sideBar;
+  const { open, width, marginLeft } = sideBar;
 
   const toggleSideBar = e => {
     e.preventDefault();
-    if (width === 0 && marginLeft === 0) {
-      setSideBar({ ...sideBar, width: 250, marginLeft: 250 });
-    } else if (width === 250 && marginLeft === 250) {
-      setSideBar({ ...sideBar, width: 0, marginLeft: 0 });
+    if (open) {
+      setSideBar({ ...sideBar, open: false, width: 250, marginLeft: 250 });
+    } else if (!open) {
+      setSideBar({ ...sideBar, open: true, width: 0, marginLeft: 0 });
     }
+  };
 
-    console.log(sideBar);
+  const sideBarStyle = {
+    width
+  };
+
+  const mainStyle = {
+    width,
+    marginLeft
   };
 
   return (
     <>
-      <div id="mySidebar" style={sideBar} className="sidebar">
-        <button className="closebtn" onClick="closeNav()"></button>
+      <div style={sideBarStyle} className="sidebar">
         <button className="btn" href="#">
           About
         </button>
@@ -37,12 +61,11 @@ const JournalEntries = entries => {
         </button>
       </div>
 
-      <div className="main" style={sideBar}>
+      <div style={mainStyle} className="main">
         <button className="openbtn" onClick={e => toggleSideBar(e)}>
-          &#9776; Toggle Sidebar
+          &#9776; View Journal Entries
         </button>
-        <h2>Collapsed Sidebar</h2>
-        <p>Content...</p>
+        <JournalEntry entries={journalEntry} />
       </div>
     </>
   );

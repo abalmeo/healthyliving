@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import JournalEntry from './JournalEntry';
 
 const JournalEntries = () => {
-  const [journalEntries, setJournalEntries] = useState({});
+  // TODO: set up retreival of journal entries using useEffect then fill in state
 
   const journalEntry = [
     {
@@ -17,6 +17,19 @@ const JournalEntries = () => {
       title: 'Second Journal Entry'
     }
   ];
+
+  const [journalEntries, setJournalEntries] = useState({
+    entries: [],
+    currentEntry: journalEntry[0]
+  });
+
+  const { entries, currentEntry } = journalEntries;
+
+  const entrySelect = entry => {
+    setJournalEntries({ ...journalEntries, currentEntry: entry });
+    console.log('entry', entry);
+    console.log(currentEntry);
+  };
 
   const [sideBar, setSideBar] = useState({
     open: false,
@@ -47,25 +60,20 @@ const JournalEntries = () => {
   return (
     <>
       <div style={sideBarStyle} className="sidebar">
-        <button className="btn" href="#">
-          About
-        </button>
-        <button className="btn" href="#">
-          Services
-        </button>
-        <button className="btn" href="#">
-          Clients
-        </button>
-        <button className="btn" href="#">
-          Contact
-        </button>
+        {journalEntry.map(entry => (
+          <button className="btn" onClick={() => entrySelect(entry)}>
+            <span>
+              {entry.date} : {entry.title}
+            </span>
+          </button>
+        ))}
       </div>
 
       <div style={mainStyle} className="main">
         <button className="openbtn" onClick={e => toggleSideBar(e)}>
           &#9776; View Journal Entries
         </button>
-        <JournalEntry entries={journalEntry} />
+        <JournalEntry entry={currentEntry} />
       </div>
     </>
   );

@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 
 const Results = ({ isAuthenticated }) => {
   console.log('isAuthenticated', isAuthenticated);
-  // if (!isAuthenticated) {
   //   return <Redirect to="/login" />;
   // } else {
   return (
@@ -27,11 +26,7 @@ const Results = ({ isAuthenticated }) => {
         </div>
       </div>
 
-      <div className="journalEntryAlignment col-sm-12">
-        <div>
-          <JournalEntry />
-        </div>
-      </div>
+      <div className="journalEntryAlignment col-sm-12"></div>
     </div>
   );
 };

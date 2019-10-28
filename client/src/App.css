@@ -87,24 +87,6 @@ nav li:hover:not(:last-of-type)::after {
 ##################
 */
 
-#mySideBarOpen {
-  width: 250px;
-}
-
-#mySideBarClose {
-  width: 0px;
-}
-
-#mainOpen {
-  width: 250px;
-  margin-left: 250px;
-}
-
-#mainClose {
-  width: 0x;
-  margin-left: 0px;
-}
-
 .sidebar {
   height: 100%;
   width: 0;

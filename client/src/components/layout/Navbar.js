@@ -14,6 +14,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
           </Link>
         </li>
         <li>
+          <Link style={{ textDecoration: 'none' }} to="/journalentries">
+            Journal Entries
+          </Link>
+        </li>
+        <li>
           <Link style={{ textDecoration: 'none' }} to="/healthforms">
             Health Form
           </Link>
@@ -21,11 +26,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
         <li>
           <Link style={{ textDecoration: 'none' }} to="/journalform">
             Journal
-          </Link>
-        </li>
-        <li>
-          <Link style={{ textDecoration: 'none' }} to="/journalentries">
-            Journal Entries
           </Link>
         </li>
         <li className="login-register">

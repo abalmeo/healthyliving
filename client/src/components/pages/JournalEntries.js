@@ -51,6 +51,17 @@ const JournalEntries = () => {
     }
   };
 
+  // Adjust text length display on sidebar
+  const checkTextLength = entry => {
+    let str = entry.date + ' : ' + entry.title;
+
+    if (str.length > 31) {
+      str = str.substring(0, 28) + '...';
+    }
+
+    return str;
+  };
+
   const sideBarStyle = {
     width
   };
@@ -68,9 +79,7 @@ const JournalEntries = () => {
         </button>
         {mockData.map(entry => (
           <button onClick={() => entrySelect([entry])}>
-            <span>
-              {entry.date} : {entry.title}
-            </span>
+            <span>{checkTextLength(entry)}</span>
           </button>
         ))}
       </div>

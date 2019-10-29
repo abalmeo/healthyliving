@@ -105,6 +105,7 @@ nav li:hover:not(:last-of-type)::after {
   background-color: #44464e;
   color: white;
   display: block;
+  width: max-content;
   transition: 0.3s;
   outline: none;
   border: none;

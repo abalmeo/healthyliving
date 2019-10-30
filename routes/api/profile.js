@@ -18,86 +18,104 @@ router.post('/', [auth], async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { bloodGlucose, bodyWeight, bloodPressure, journalEntry } = req.body;
+  const { bloodGlucose, bodyWeight, bloodPressure } = req.body;
 
-  try {
-    // Check if a profile exists for user
-    const profile = await Profile.findOne({ user: req.user.id });
+  if (bloodPressure.s)
+    try {
+      // Check if a profile exists for user
+      const profile = await Profile.findOne({ user: req.user.id });
 
-    if (profile) {
-      if (bloodGlucose) {
-        profile.bloodGlucose.unshift(bloodGlucose);
-      }
-      if (bodyWeight) {
-        profile.bodyWeight.unshift(bodyWeight);
-      }
-      if (bloodPressure) {
-        profile.bloodPressure.unshift(bloodPressure);
+      if (profile) {
+        if (bloodGlucose) {
+          profile.bloodGlucose.unshift(bloodGlucose);
+        }
+        if (bodyWeight) {
+          profile.bodyWeight.unshift(bodyWeight);
+        }
+        if (bloodPressure) {
+          profile.bloodPressure.unshift(bloodPressure);
+        }
+
+        await profile.save();
+        return res.json(profile);
       }
 
-      await profile.save();
-      return res.json(profile);
+      // Else create a new profile for user
+      const profileFields = {};
+      profileFields.user = req.user.id;
+      if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
+      if (bodyWeight) profileFields.bodyWeight = bodyWeight;
+      if (bloodPressure) profileFields.bloodPressure = bloodPressure;
+      const newProfile = new Profile(profileFields);
+
+      await newProfile.save();
+
+      res.json(newProfile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
     }
-
-    // Else create a new profile for user
-    const profileFields = {};
-    profileFields.user = req.user.id;
-    if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
-    if (bodyWeight) profileFields.bodyWeight = bodyWeight;
-    if (bloodPressure) profileFields.bloodPressure = bloodPressure;
-    const newProfile = new Profile(profileFields);
-
-    await newProfile.save();
-
-    res.json(newProfile);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
 });
 
 // route POST @api/post
 // Post journal entries
 // Private
 
-// TODO: Add validation for incoming data
-router.post('/journal', [auth], async (req, res) => {
-  const errors = validationResult(req);
+router.post(
+  '/journal',
+  [
+    auth,
+    [
+      check('journalEntry.title', 'Title is required')
+        .not()
+        .isEmpty()
+        .isLength({ min: 1 }),
+      check('journalEntry.body', 'Body is required')
+        .not()
+        .isEmpty()
+        .isLength({ min: 1 }),
+      check('journalEntry.date', 'Date is required')
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { journalEntry } = req.body;
 
-  const { journalEntry } = req.body;
+    try {
+      // Check if profile exists for user
+      const profile = await Profile.findOne({ user: req.user.id });
 
-  try {
-    // Check if profile exists for user
-    const profile = await Profile.findOne({ user: req.user.id });
+      if (profile) {
+        if (journalEntry) {
+          profile.journalEntry.unshift(journalEntry);
+        }
 
-    if (profile) {
-      if (journalEntry) {
-        profile.journalEntry.unshift(journalEntry);
+        await profile.save();
+        return res.json(profile.journalEntry);
       }
 
-      await profile.save();
-      return res.json(profile.journalEntry);
+      // Create a new profile if profile doesn't already exist
+      const profileFields = {};
+      profileFields.user = req.user.id;
+
+      // Create profile and add new journal entry
+      if (journalEntry) profileFields.journalEntry = journalEntry;
+      const newProfile = new Profile(profileFields);
+      await newProfile.save();
+
+      res.json(newProfile);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server Error');
     }
-
-    // Create a new profile if profile doesn't already exist
-    const profileFields = {};
-    profileFields.user = req.user.id;
-
-    // Create profile and add new journal entry
-    if (journalEntry) profileFields.journalEntry = journalEntry;
-    const newProfile = new Profile(profileFields);
-    await newProfile.save();
-
-    res.json(newProfile);
-  } catch (error) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
   }
-});
+);
 
 //route      GET @api/profile/
 //@desc      Get current users profile information

@@ -55,7 +55,7 @@ const JournalEntries = () => {
   const checkTextLength = entry => {
     let str = entry.date + ' : ' + entry.title;
 
-    if (str.length > 31) {
+    if (str.length > 30) {
       str = str.substring(0, 28) + '...';
     }
 

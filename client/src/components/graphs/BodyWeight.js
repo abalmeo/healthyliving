@@ -41,7 +41,6 @@ const BodyWeightChart = () => {
   const { bodyWeight } = bodyWeightValues;
 
   let dataPoints = obtainChartData(bodyWeight, 'Body Weight');
-  console.log('dataPoints', dataPoints);
 
   return (
     <div className="chart">

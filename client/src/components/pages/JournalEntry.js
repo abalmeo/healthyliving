@@ -1,7 +1,6 @@
 import React from 'react';
 
 const JournalEntry = ({ entry }) => {
-  console.log(entry);
   return (
     <div className="journal">
       <div className="container journalEntryAlignment">

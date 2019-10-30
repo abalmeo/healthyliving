@@ -8,10 +8,7 @@ import JournalEntry from '../../components/pages/JournalEntry';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const Results = ({ isAuthenticated }) => {
-  console.log('isAuthenticated', isAuthenticated);
-  //   return <Redirect to="/login" />;
-  // } else {
+const Results = () => {
   return (
     <div className="results">
       <div className="container">
@@ -30,7 +27,6 @@ const Results = ({ isAuthenticated }) => {
     </div>
   );
 };
-// };
 
 Results.propTypes = {
   isAuthenticated: PropTypes.bool

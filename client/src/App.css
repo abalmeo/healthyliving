@@ -25,13 +25,17 @@
 */
 nav {
   background-color: #24252a;
-  padding: 1% 8%;
+  padding: 1% 5%;
   text-decoration: none;
 }
 
 nav li {
   list-style: none;
-  padding: 0px 20px;
+  padding: 0px 15px;
+}
+
+ul a {
+  color: hsl(180, 5%, 88%);
 }
 
 nav li:not(:last-of-type)::after {
@@ -51,18 +55,16 @@ nav li:hover:not(:last-of-type)::after {
 
 .user-navigation {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
-  color: #edf0f1;
   display: flex;
   justify-content: flex-end;
 }
 
 .login-register {
-  margin-left: 2%;
+  margin-left: 1%;
   padding: 0px 15px;
-  background-color: #5ac0de;
-  color: white;
+  background-color: #1f689c;
   border: none;
   content: none;
   border-radius: 10px;
@@ -70,7 +72,7 @@ nav li:hover:not(:last-of-type)::after {
 
 /* Darken navigation link on hover */
 .login-register:hover {
-  background-color: #5ac0de;
+  background-color: #1f689c;
   opacity: 0.6;
   transition: opacity 0.4s;
 }
@@ -99,7 +101,7 @@ nav li:hover:not(:last-of-type)::after {
 }
 
 .sidebar button {
-  padding: 2% 1%;
+  padding: 3% 5%;
   text-decoration: none;
   font-size: 16px;
   background-color: #44464e;

@@ -6,7 +6,7 @@ import { logoutUser } from '../../actions/authAction';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
   const authLinks = (
-    <div className="right-navigation">
+    <div>
       <ul className="user-navigation">
         <li>
           <Link style={{ textDecoration: 'none' }} to="/results">
@@ -37,7 +37,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
     </div>
   );
   const guestLinks = (
-    <div className="right-navigation">
+    <div>
       <ul className="user-navigation">
         <li>
           <Link style={{ textDecoration: 'none' }} to="/">

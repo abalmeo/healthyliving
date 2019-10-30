@@ -9,16 +9,15 @@ const HealthForms = () => {
     bloodGlucose: '',
     bloodPressure: '',
     systolic: '',
-    diastolic: '',
-    dateTime: ''
+    diastolic: ''
   });
+
   const {
     bodyWeight,
     bloodGlucose,
     bloodPressure,
     systolic,
-    diastolic,
-    dateTime
+    diastolic
   } = healthData;
 
   const [startDate, setStartDate] = useState(new Date());
@@ -33,7 +32,9 @@ const HealthForms = () => {
       bodyWeight,
       bloodGlucose,
       bloodPressure,
-      dateTime
+      systolic,
+      diastolic,
+      startDate
     };
   };
 

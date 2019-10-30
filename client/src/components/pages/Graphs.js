@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Bar, Line, Pie } from 'react-chartjs-2';
+import React, { useState, useEffect } from 'react';
+import { Line } from 'react-chartjs-2';
+import { getCurrentProfile } from '../../actions/profileAction';
 import 'chartjs-plugin-annotation';
 
-const Chart = () => {
+const Chart = ({ getCurrentProfile, auth: user }) => {
   const [chartData, setChartData] = useState({
     chartDataBW: {
       labels: [
@@ -11,8 +11,8 @@ const Chart = () => {
         '12/2/2018',
         '12/3/2018',
         '12/4/2018',
-        '12/5/2018',
         '12/6/2018',
+        '12/5/2018',
         '12/7/2018'
       ],
       datasets: [
@@ -24,6 +24,10 @@ const Chart = () => {
       ]
     }
   });
+
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
 
   return (
     <div className="chart">

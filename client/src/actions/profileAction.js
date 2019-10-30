@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { setAlert } from './alert';
+// TODO: set up alert
+import { setAlert } from './alertAction';
 
 import {
   GET_PROFILE,
@@ -8,11 +9,10 @@ import {
   CLEAR_PROFILE,
   UPDATE_JOURNAL
 } from './types';
-re
 // Get user profile
 export const getCurrentProfile = () => async dispatch => {
   try {
-    const res = await axios.get("/api/profile/");
+    const res = await axios.get(`/api/profile/`);
 
     dispatch({
       type: GET_PROFILE,
@@ -21,48 +21,44 @@ export const getCurrentProfile = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: {msg: err.response.statusText, status: err.response.status}
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
 
 // Create or Update Profile
-export const createProfile = (
-  formData,
-  edit = false
-) => async dispatch => {
+export const createProfile = (formData, edit = false) => async dispatch => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     };
 
-    const res = await axios.post("/api/profile", formData, config);
+    const res = await axios.post('/api/profile', formData, config);
 
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
-      // If edit true, then profile updated otherwise profile is created
-    dispatch(setAlert(edit? "Profile Updated": "Profile Created", "success"));
-    } catch (err) {
-      const errors = err.response.data.errors;
-      if (errors) {
-        errors.forEach(error => dispatch(setAlert(error.msg,"danger")));
-      }
+    // If edit true, then profile updated otherwise profile is created
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
 
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: {msg: err.response.statusText, status: err.response.status}
-      })
-
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
   }
-}
+};
 
-export const updateProfile = () => {
+export const updateProfile = () => async dispatch => {
   try {
-    const res = await axios.post("/api/profile");
+    const res = await axios.post('/api/profile');
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -71,14 +67,14 @@ export const updateProfile = () => {
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: {msg: err.response.statusText, status: err.response.status}
-    })
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
   }
-}
+};
 
-export const updateJournal = () => {
+export const updateJournal = () => async dispatch => {
   try {
-    const res = await axios.post("/api/profile/journal");
+    const res = await axios.post('/api/profile/journal');
 
     dispatch({
       type: UPDATE_JOURNAL,
@@ -87,7 +83,7 @@ export const updateJournal = () => {
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: {msg: err.response.statusText, status: err.response.status}
-    })
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
   }
-}
+};

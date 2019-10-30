@@ -38,6 +38,7 @@ const App = () => {
           <Route exact path="/about" component={About} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+
           <PrivateRoute exact path="/results" component={Results} />
           <PrivateRoute exact path="/healthforms" component={HealthForms} />
           <PrivateRoute exact path="/journalform" component={JournalForm} />

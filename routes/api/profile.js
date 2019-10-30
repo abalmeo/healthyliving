@@ -1,6 +1,4 @@
 const express = require('express');
-const request = require('request');
-const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
@@ -18,43 +16,47 @@ router.post('/', [auth], async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { bloodGlucose, bodyWeight, bloodPressure } = req.body;
+  const {
+    bloodGlucose,
+    bodyWeight,
+    bloodPressure,
+    bloodPressure: { systolic, diastolic }
+  } = req.body;
 
-  if (bloodPressure.s)
-    try {
-      // Check if a profile exists for user
-      const profile = await Profile.findOne({ user: req.user.id });
+  try {
+    // Check if a profile exists for user
+    const profile = await Profile.findOne({ user: req.user.id });
 
-      if (profile) {
-        if (bloodGlucose) {
-          profile.bloodGlucose.unshift(bloodGlucose);
-        }
-        if (bodyWeight) {
-          profile.bodyWeight.unshift(bodyWeight);
-        }
-        if (bloodPressure) {
-          profile.bloodPressure.unshift(bloodPressure);
-        }
-
-        await profile.save();
-        return res.json(profile);
+    if (profile) {
+      if (bloodGlucose) {
+        profile.bloodGlucose.unshift(bloodGlucose);
+      }
+      if (bodyWeight) {
+        profile.bodyWeight.unshift(bodyWeight);
+      }
+      if (systolic && diastolic) {
+        profile.bloodPressure.unshift(bloodPressure);
       }
 
-      // Else create a new profile for user
-      const profileFields = {};
-      profileFields.user = req.user.id;
-      if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
-      if (bodyWeight) profileFields.bodyWeight = bodyWeight;
-      if (bloodPressure) profileFields.bloodPressure = bloodPressure;
-      const newProfile = new Profile(profileFields);
-
-      await newProfile.save();
-
-      res.json(newProfile);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
+      await profile.save();
+      return res.json(profile);
     }
+
+    // Else create a new profile for user
+    const profileFields = {};
+    profileFields.user = req.user.id;
+    if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
+    if (bodyWeight) profileFields.bodyWeight = bodyWeight;
+    if (bloodPressure) profileFields.bloodPressure = bloodPressure;
+    const newProfile = new Profile(profileFields);
+
+    await newProfile.save();
+
+    res.json(newProfile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
 });
 
 // route POST @api/post
@@ -121,22 +123,22 @@ router.post(
 //@desc      Get current users profile information
 //@access    Private
 
-router.get('/', auth, async (req, res) => {
-  try {
-    const profile = await Profile.findOne({ user: req.user.id });
-    if (profile) {
-      return res.json(profile);
-    }
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
-});
+// router.get('/', auth, async (req, res) => {
+//   try {
+//     const profile = await Profile.findOne({ user: req.user.id });
+//     if (profile) {
+//       return res.json(profile);
+//     }
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send('Server error');
+//   }
+// });
 
 //route      GET @api/profile/me
 //@desc      Get current users profile
 //@access    Public
-router.get('/me', auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       'user',

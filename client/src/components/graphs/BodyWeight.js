@@ -1,46 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { obtainChartData } from './graphUtils';
-import { Bar, Line, Pie } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-annotation';
 
-const BodyWeightChart = () => {
-  const [bodyWeightValues, setBodyWeightValues] = useState({
-    // TODO: update with useEffect and real data once functionality is finished; mockdata for now
-    bodyWeight: [
-      {
-        date: '12/1/2018',
-        value: 160
-      },
-      {
-        date: '12/2/2018',
-        value: 152
-      },
-      {
-        date: '12/3/2018',
-        value: 155
-      },
-      {
-        date: '12/4/2018',
-        value: 168
-      },
-      {
-        date: '12/5/2018',
-        value: 170
-      },
-      {
-        date: '12/6/2018',
-        value: 171
-      },
-      {
-        date: '12/7/2018',
-        value: 172
-      }
-    ]
-  });
-
-  const { bodyWeight } = bodyWeightValues;
-
-  let dataPoints = obtainChartData(bodyWeight, 'Body Weight');
+const BodyWeightChart = ({ bodyWeight }) => {
+  let dataPoints = obtainChartData(bodyWeight);
 
   return (
     <div className="chart">

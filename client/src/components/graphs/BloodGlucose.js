@@ -1,44 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { obtainChartData } from './graphUtils';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-annotation';
 
-const BloodGlucoseChart = () => {
-  // TODO: update with useEffect and real data once functionality is finished; mockdata for now
-  const [bloodGlucoseValues, setBloodGlucoseValues] = useState({
-    bloodGlucose: [
-      {
-        date: '12/1/2018',
-        value: 160
-      },
-      {
-        date: '12/2/2018',
-        value: 154
-      },
-      {
-        date: '12/3/2018',
-        value: 152
-      },
-      {
-        date: '12/4/2018',
-        value: 152
-      },
-      {
-        date: '12/5/2018',
-        value: 153
-      },
-      {
-        date: '12/6/2018',
-        value: 163
-      },
-      {
-        date: '12/7/2018',
-        value: 154
-      }
-    ]
-  });
-
-  const { bloodGlucose } = bloodGlucoseValues;
+const BloodGlucoseChart = ({ bloodGlucose }) => {
   let dataPoints = obtainChartData(bloodGlucose, 'Blood Glucose');
 
   return (

@@ -27,10 +27,10 @@ const Results = ({ getCurrentProfile, loading, profile: { profile } }) => {
           <BloodPressurechart bloodPressure={profile.bloodPressure} />
         </div>
         <div className="graphSpacing">
-          <BloodGlucoseChart />
+          <BloodGlucoseChart bloodGlucose={profile.bloodGlucose} />
         </div>
         <div className="graphSpacing">
-          <BodyWeightChart />
+          <BodyWeightChart bodyWeight={profile.bodyWeight} />
         </div>
       </div>
     </>

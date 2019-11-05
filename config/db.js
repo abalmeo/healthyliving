@@ -5,7 +5,7 @@ let db;
 if (config.get('useLocalDb') === false) {
   db = config.get('mongoURI');
 } else {
-  db = 'mongodb://127.0.0.1:27017/healthy-living-db';
+  db = 'mongodb://127.0.0.1:27017/healthy-living';
 }
 
 //mongoose connect returns promise

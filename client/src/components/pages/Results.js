@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Loading from './Loading';
 import BloodGlucoseChart from '../../components/graphs/BloodGlucose';
 import BodyWeightChart from '../../components/graphs/BodyWeight';
 import BloodPressurechart from '../../components/graphs/BloodPressure';
@@ -7,16 +8,23 @@ import { getCurrentProfile } from '../../actions/profileAction';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const Results = ({ getCurrentProfile, profile: { profile } }) => {
+const Results = ({ getCurrentProfile, loading, profile: { profile } }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  return (
-    <div className="results">
+  return loading || profile === null ? (
+    <Loading />
+  ) : (
+    <>
+      <div className="sidebar-results">
+        <button>TODO: Add BP Icon</button>
+        <button>TODO: Add BW Icon</button>
+        <button>TODO: Add BG Icon</button>
+      </div>
       <div className="container">
         <div className="graphSpacing">
-          <BloodPressurechart />
+          <BloodPressurechart bloodPressure={profile.bloodPressure} />
         </div>
         <div className="graphSpacing">
           <BloodGlucoseChart />
@@ -25,9 +33,7 @@ const Results = ({ getCurrentProfile, profile: { profile } }) => {
           <BodyWeightChart />
         </div>
       </div>
-
-      <div className="journalEntryAlignment col-sm-12"></div>
-    </div>
+    </>
   );
 };
 

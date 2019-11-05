@@ -3,12 +3,8 @@ import { obtainBPData } from './graphUtils';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-annotation';
 
-const BloodPressureChart = bloodPressure => {
-  console.log('bloodPressure', bloodPressure);
-
+const BloodPressureChart = ({ bloodPressure }) => {
   let dataPoints = obtainBPData(bloodPressure);
-  console.log('dataPoints', dataPoints);
-
   return (
     <div className="chart">
       <Line

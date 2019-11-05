@@ -1,4 +1,5 @@
 {
+  "useLocalDb": false,
   "mongoURI": "mongodb+srv://alvin:alvin@cluster0-gcdik.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "secret"
 }

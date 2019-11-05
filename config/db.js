@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const db = config.get('mongoURI');
+let db;
+
+if (config.get('useLocalDb') === false) {
+  db = config.get('mongoURI');
+} else {
+  db = 'mongodb://127.0.0.1:27017/healthy-living-db';
+}
 
 //mongoose connect returns promise
 const connectDB = async () => {

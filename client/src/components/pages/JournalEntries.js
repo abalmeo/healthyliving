@@ -36,18 +36,17 @@ const JournalEntries = () => {
 
   const [sideBar, setSideBar] = useState({
     open: true,
-    width: 0,
-    marginLeft: 0
+    width: 250,
+    marginLeft: 250
   });
 
   const { open, width, marginLeft } = sideBar;
 
   const toggleSideBar = e => {
-    e.preventDefault();
-    if (open) {
-      setSideBar({ ...sideBar, open: false, width: 250, marginLeft: 250 });
-    } else if (!open) {
-      setSideBar({ ...sideBar, open: true, width: 0, marginLeft: 0 });
+    if (!open) {
+      setSideBar({ ...sideBar, open: true, width: 250, marginLeft: 250 });
+    } else if (open) {
+      setSideBar({ ...sideBar, open: false, width: 0, marginLeft: 0 });
     }
   };
 

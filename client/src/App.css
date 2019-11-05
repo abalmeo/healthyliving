@@ -18,6 +18,10 @@
   height: 100vh;
 }
 
+.top-spacing {
+  padding-top: 3%;
+}
+
 /*
 ##################
   Navigation Start
@@ -223,19 +227,22 @@ nav li:hover:not(:last-of-type)::after {
 }
 
 /*
-######################################Journal Entry Styling
-######################################
-######################################
+##################
+  JournalEntry Start
+##################
 */
+.journal-entry-spacing {
+  padding-left: 100px;
+}
 
-.journalHeading {
-  text-align: center;
+.journal-heading {
+  /* text-align: center; */
   margin-bottom: 20px;
   font-size: 22px;
 }
 
 /*
-######################################
-######################################
-######################################
+##################
+  JournalEntry End
+##################
 */

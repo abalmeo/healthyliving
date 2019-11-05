@@ -23,45 +23,41 @@ const JournalForm = () => {
       entry,
       date
     };
-
-    console.log(data);
   };
 
   return (
-    <div className="journal">
-      <div className="container">
-        <form onSubmit={e => onSubmit(e)}>
-          <DatePicker
-            name="date"
-            selected={date}
-            onChange={date => setDate(date)}
-          />
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Title of Entry"
-              name="entryTitle"
-              value={entryTitle}
-              onChange={e => onChange(e)}
-            ></input>
-          </div>
-          <div className="form-group">
-            <textarea
-              type="text"
-              className="form-control"
-              placeholder="How are you feeling today?"
-              name="entry"
-              value={entry}
-              onChange={e => onChange(e)}
-              rows="15"
-            ></textarea>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
+    <div className="top-spacing container">
+      <form onSubmit={e => onSubmit(e)}>
+        <DatePicker
+          name="date"
+          selected={date}
+          onChange={date => setDate(date)}
+        />
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Title of Entry"
+            name="entryTitle"
+            value={entryTitle}
+            onChange={e => onChange(e)}
+          ></input>
+        </div>
+        <div className="form-group">
+          <textarea
+            type="text"
+            className="form-control"
+            placeholder="How are you feeling today?"
+            name="entry"
+            value={entry}
+            onChange={e => onChange(e)}
+            rows="15"
+          ></textarea>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
     </div>
   );
 };

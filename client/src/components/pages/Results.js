@@ -17,12 +17,7 @@ const Results = ({ getCurrentProfile, loading, profile: { profile } }) => {
     <Loading />
   ) : (
     <>
-      <div className="sidebar-results">
-        <button>TODO: Add BP Icon</button>
-        <button>TODO: Add BW Icon</button>
-        <button>TODO: Add BG Icon</button>
-      </div>
-      <div className="container">
+      <div className="top-spacing container">
         <div className="graphSpacing">
           <BloodPressurechart bloodPressure={profile.bloodPressure} />
         </div>

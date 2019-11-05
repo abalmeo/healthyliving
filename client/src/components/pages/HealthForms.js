@@ -42,13 +42,10 @@ const HealthForms = () => {
     <div className="top-spacing container">
       <form className="form" onSubmit={e => onFormSubmit(e)}>
         <DatePicker
+          className="date"
           selected={startDate}
           onChange={date => setStartDate(date)}
-          showTimeSelect
-          timeFormat="HH:mm"
-          timeIntervals={15}
-          timeCaption="time"
-          dateFormat="MMMM d, yyyy h:mm aa"
+          dateFormat="MMMM d, yyyy"
         />
         <div className="form-group row">
           <label htmlFor="inputBodyWeight" className="col-sm-12 col-form-label">

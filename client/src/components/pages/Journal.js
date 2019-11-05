@@ -10,7 +10,7 @@ const JournalForm = () => {
   });
 
   const { entryTitle, entry } = journalEntry;
-  const [date, setDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
 
   const onChange = e => {
     setJournalEntry({ ...journalEntry, [e.target.name]: e.target.value });
@@ -20,8 +20,7 @@ const JournalForm = () => {
     e.preventDefault();
     let data = {
       entryTitle,
-      entry,
-      date
+      entry
     };
   };
 
@@ -29,9 +28,10 @@ const JournalForm = () => {
     <div className="top-spacing container">
       <form onSubmit={e => onSubmit(e)}>
         <DatePicker
-          name="date"
-          selected={date}
-          onChange={date => setDate(date)}
+          className="date"
+          selected={startDate}
+          onChange={date => setStartDate(date)}
+          dateFormat="MMMM d, yyyy"
         />
         <div className="form-group">
           <input

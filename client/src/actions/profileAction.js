@@ -72,9 +72,14 @@ export const updateProfile = () => async dispatch => {
   }
 };
 
-export const updateJournal = () => async dispatch => {
+export const updateJournal = formData => async dispatch => {
   try {
-    const res = await axios.post('/api/profile/journal');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    const res = await axios.post('/api/profile/journal', formData, config);
 
     dispatch({
       type: UPDATE_JOURNAL,

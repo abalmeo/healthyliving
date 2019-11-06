@@ -68,15 +68,15 @@ router.post(
   [
     auth,
     [
-      check('journalEntry.title', 'Title is required')
+      check('title', 'Title is required')
         .not()
         .isEmpty()
         .isLength({ min: 1 }),
-      check('journalEntry.body', 'Body is required')
+      check('body', 'Body is required')
         .not()
         .isEmpty()
         .isLength({ min: 1 }),
-      check('journalEntry.date', 'Date is required')
+      check('date', 'Date is required')
         .not()
         .isEmpty()
     ]
@@ -87,17 +87,12 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { journalEntry } = req.body;
 
     try {
       // Check if profile exists for user
       const profile = await Profile.findOne({ user: req.user.id });
-
       if (profile) {
-        if (journalEntry) {
-          profile.journalEntry.unshift(journalEntry);
-        }
-
+        profile.journalEntry.unshift(req.body);
         await profile.save();
         return res.json(profile.journalEntry);
       }
@@ -107,7 +102,7 @@ router.post(
       profileFields.user = req.user.id;
 
       // Create profile and add new journal entry
-      if (journalEntry) profileFields.journalEntry = journalEntry;
+      if (req.body) profileFields.journalEntry = req.body;
       const newProfile = new Profile(profileFields);
       await newProfile.save();
 
@@ -119,25 +114,6 @@ router.post(
   }
 );
 
-//route      GET @api/profile/
-//@desc      Get current users profile information
-//@access    Private
-
-// router.get('/', auth, async (req, res) => {
-//   try {
-//     const profile = await Profile.findOne({ user: req.user.id });
-//     if (profile) {
-//       return res.json(profile);
-//     }
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send('Server error');
-//   }
-// });
-
-//route      GET @api/profile/me
-//@desc      Get current users profile
-//@access    Public
 router.get('/', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(

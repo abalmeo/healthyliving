@@ -7,13 +7,14 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
 
-const JournalForm = ({ isAuthenticated }) => {
+const JournalForm = ({ updateJournal }) => {
   const [journalEntry, setJournalEntry] = useState({
     body: '',
     date: ''
   });
 
   const { body, title } = journalEntry;
+
   const [date, setStartDate] = useState(new Date());
 
   const onChange = e => {
@@ -29,10 +30,6 @@ const JournalForm = ({ isAuthenticated }) => {
     };
     updateJournal(journalData);
   };
-
-  if (!isAuthenticated) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <div className="top-spacing container">

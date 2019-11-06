@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { updateJournal } from '../../actions/profileAction';
+import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
 
-const JournalForm = () => {
+const JournalForm = ({ isAuthenticated }) => {
   const [journalEntry, setJournalEntry] = useState({
-    entryTitle: '',
-    entry: ''
+    body: '',
+    date: ''
   });
 
-  const { entryTitle, entry } = journalEntry;
-  const [startDate, setStartDate] = useState(new Date());
+  const { body, title } = journalEntry;
+  const [date, setStartDate] = useState(new Date());
 
   const onChange = e => {
     setJournalEntry({ ...journalEntry, [e.target.name]: e.target.value });
@@ -18,18 +22,24 @@ const JournalForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    let data = {
-      entryTitle,
-      entry
+    const journalData = {
+      body,
+      title,
+      date
     };
+    updateJournal(journalData);
   };
+
+  if (!isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className="top-spacing container">
       <form onSubmit={e => onSubmit(e)}>
         <DatePicker
           className="date"
-          selected={startDate}
+          selected={date}
           onChange={date => setStartDate(date)}
           dateFormat="MMMM d, yyyy"
         />
@@ -38,8 +48,8 @@ const JournalForm = () => {
             type="text"
             className="form-control"
             placeholder="Title of Entry"
-            name="entryTitle"
-            value={entryTitle}
+            name="title"
+            value={title}
             onChange={e => onChange(e)}
           ></input>
         </div>
@@ -48,18 +58,28 @@ const JournalForm = () => {
             type="text"
             className="form-control"
             placeholder="How are you feeling today?"
-            name="entry"
-            value={entry}
+            name="body"
+            value={body}
             onChange={e => onChange(e)}
             rows="15"
           ></textarea>
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
+        <input type="submit" className="btn btn-info btn-block mt-4" />
       </form>
     </div>
   );
 };
 
-export default JournalForm;
+JournalForm.propTypes = {
+  updateJournal: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { updateJournal }
+)(JournalForm);

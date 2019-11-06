@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { updateJournal } from '../../actions/profileAction';
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
@@ -10,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
 const JournalForm = ({ updateJournal }) => {
   const [journalEntry, setJournalEntry] = useState({
     body: '',
-    date: ''
+    title: ''
   });
 
   const { body, title } = journalEntry;
@@ -68,15 +67,10 @@ const JournalForm = ({ updateJournal }) => {
 };
 
 JournalForm.propTypes = {
-  updateJournal: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  updateJournal: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-
 export default connect(
-  mapStateToProps,
+  null,
   { updateJournal }
 )(JournalForm);

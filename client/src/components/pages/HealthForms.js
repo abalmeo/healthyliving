@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { updateProfile } from '../../actions/profileAction';
+import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
 
-const HealthForms = () => {
+const HealthForms = ({ updateProfile }) => {
   const [healthData, setHealthData] = useState({
     bodyWeight: '',
     bloodGlucose: '',
@@ -20,30 +23,32 @@ const HealthForms = () => {
     diastolic
   } = healthData;
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [date, setStartDate] = useState(new Date());
 
-  const onFormChange = e => {
+  const onChange = e => {
     setHealthData({ ...healthData, [e.target.name]: e.target.value });
   };
 
-  const onFormSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
-    const data = {
+    const profileData = {
       bodyWeight,
       bloodGlucose,
       bloodPressure,
       systolic,
       diastolic,
-      startDate
+      date
     };
+
+    updateProfile(profileData);
   };
 
   return (
     <div className="top-spacing container">
-      <form className="form" onSubmit={e => onFormSubmit(e)}>
+      <form className="form" onSubmit={e => onSubmit(e)}>
         <DatePicker
           className="date"
-          selected={startDate}
+          selected={date}
           onChange={date => setStartDate(date)}
           dateFormat="MMMM d, yyyy"
         />
@@ -60,7 +65,7 @@ const HealthForms = () => {
               max="1500"
               placeholder="Body Weight (lbs)"
               value={bodyWeight}
-              onChange={e => onFormChange(e)}
+              onChange={e => onChange(e)}
             ></input>
           </div>
         </div>
@@ -80,7 +85,7 @@ const HealthForms = () => {
               max="3000"
               placeholder="Blood Glucose (mg/dL)"
               value={bloodGlucose}
-              onChange={e => onFormChange(e)}
+              onChange={e => onChange(e)}
             ></input>
           </div>
         </div>
@@ -106,7 +111,7 @@ const HealthForms = () => {
               max="250"
               placeholder="mm Hg(higher)"
               value={systolic}
-              onChange={e => onFormChange(e)}
+              onChange={e => onChange(e)}
             ></input>
           </div>
           <div className="col-sm-6">
@@ -124,7 +129,7 @@ const HealthForms = () => {
               max="140"
               placeholder="mm Hg(lower)"
               value={diastolic}
-              onChange={e => onFormChange(e)}
+              onChange={e => onChange(e)}
             ></input>
           </div>
         </div>
@@ -136,4 +141,11 @@ const HealthForms = () => {
   );
 };
 
-export default HealthForms;
+HealthForms.prototype = {
+  updateProfile: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { updateProfile }
+)(HealthForms);

@@ -10,18 +10,11 @@ const HealthForms = ({ updateProfile }) => {
   const [healthData, setHealthData] = useState({
     bodyWeight: '',
     bloodGlucose: '',
-    bloodPressure: '',
     systolic: '',
     diastolic: ''
   });
 
-  const {
-    bodyWeight,
-    bloodGlucose,
-    bloodPressure,
-    systolic,
-    diastolic
-  } = healthData;
+  const { bodyWeight, bloodGlucose, systolic, diastolic } = healthData;
 
   const [date, setStartDate] = useState(new Date());
 
@@ -31,14 +24,18 @@ const HealthForms = ({ updateProfile }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    const profileData = {
-      bodyWeight,
-      bloodGlucose,
-      bloodPressure,
-      systolic,
-      diastolic,
-      date
-    };
+
+    const profileData = {};
+
+    profileData.date = date;
+
+    for (let key in healthData) {
+      if (healthData[key] !== '') {
+        profileData[key] = healthData[key];
+      }
+    }
+
+    console.log('profileData', profileData);
 
     updateProfile(profileData);
   };

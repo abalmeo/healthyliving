@@ -12,30 +12,32 @@ const User = require('../../models/User');
 
 // TODO: Add validation for incoming data
 router.post('/', [auth], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-  const {
-    bloodGlucose,
-    bodyWeight,
-    bloodPressure,
-    bloodPressure: { systolic, diastolic }
-  } = req.body;
+  console.log('req.body.Data', req.body);
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   return res.status(400).json({ errors: errors.array() });
+  // }
 
   try {
     // Check if a profile exists for user
     const profile = await Profile.findOne({ user: req.user.id });
 
     if (profile) {
-      if (bloodGlucose) {
-        profile.bloodGlucose.unshift(bloodGlucose);
+      for (let formKey in req.body) {
+        if (!['date', 'systolic', 'diastolic'].includes(formKey)) {
+          profile[formKey].unshift({
+            date: req.body.date,
+            value: req.body[formKey]
+          });
+        }
       }
-      if (bodyWeight) {
-        profile.bodyWeight.unshift(bodyWeight);
-      }
-      if (systolic && diastolic) {
-        profile.bloodPressure.unshift(bloodPressure);
+
+      if (req.body.systolic && req.body.diastolic) {
+        profile.bloodPressure.unshift({
+          systolic: req.body.systolic,
+          diastolic: req.body.diastolic,
+          date: req.body.date
+        });
       }
 
       await profile.save();
@@ -45,9 +47,19 @@ router.post('/', [auth], async (req, res) => {
     // Else create a new profile for user
     const profileFields = {};
     profileFields.user = req.user.id;
-    if (bloodGlucose) profileFields.bloodGlucose = bloodGlucose;
-    if (bodyWeight) profileFields.bodyWeight = bodyWeight;
-    if (bloodPressure) profileFields.bloodPressure = bloodPressure;
+    if (req.body.bloodGlucose) {
+      profileFields.bloodGlucose = req.body.bloodGlucose;
+    }
+    if (req.body.bodyWeight) {
+      profileFields.bodyWeight = req.body.bodyWeight;
+    }
+    if (req.body.bloodPressure.systolic && req.body.bloodPressure.diastolic) {
+      profileFields.bloodPressure = {
+        systolic: req.body.systolic,
+        diastolic: req.body.diastolic
+      };
+    }
+
     const newProfile = new Profile(profileFields);
 
     await newProfile.save();
@@ -131,34 +143,5 @@ router.get('/', auth, async (req, res) => {
     res.status(500).send;
   }
 });
-
-// router.post(
-//   '/journal/:id',
-//   [
-//     auth,
-//     [
-//       check('text', 'Text is required')
-//         .not()
-//         .isEmpty()
-//     ]
-//   ],
-
-//   async (req, res) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.status(400).json({ errors: errors.array() });
-//     }
-
-//     try {
-//       const user = await User.findByIdAndUpdate(req.user.id).select(
-//         '-password'
-//       );
-
-//       const post = await Profile.findById(req.params.id);
-
-//       const entry = post.entries.find();
-//     } catch (err) {}
-//   }
-// );
 
 module.exports = router;

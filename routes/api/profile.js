@@ -12,11 +12,10 @@ const User = require('../../models/User');
 
 // TODO: Add validation for incoming data
 router.post('/', [auth], async (req, res) => {
-  console.log('req.body.Data', req.body);
-  // const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(400).json({ errors: errors.array() });
-  // }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
   try {
     // Check if a profile exists for user
@@ -47,17 +46,25 @@ router.post('/', [auth], async (req, res) => {
     // Else create a new profile for user
     const profileFields = {};
     profileFields.user = req.user.id;
-    if (req.body.bloodGlucose) {
-      profileFields.bloodGlucose = req.body.bloodGlucose;
+    for (let formKey in req.body) {
+      if (!['date', 'systolic', 'diastolic'].includes(formKey)) {
+        profileFields[formKey] = [
+          {
+            date: req.body.date,
+            value: req.body[formKey]
+          }
+        ];
+      }
     }
-    if (req.body.bodyWeight) {
-      profileFields.bodyWeight = req.body.bodyWeight;
-    }
-    if (req.body.bloodPressure.systolic && req.body.bloodPressure.diastolic) {
-      profileFields.bloodPressure = {
-        systolic: req.body.systolic,
-        diastolic: req.body.diastolic
-      };
+
+    if (req.body.systolic && req.body.diastolic) {
+      profileFields.bloodPressure = [
+        {
+          systolic: req.body.systolic,
+          diastolic: req.body.diastolic,
+          date: req.body.date
+        }
+      ];
     }
 
     const newProfile = new Profile(profileFields);

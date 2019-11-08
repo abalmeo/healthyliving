@@ -1,27 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Loading from './Loading';
 import JournalEntry from './JournalEntry';
+import { getCurrentProfile } from '../../actions/profileAction';
 
-const JournalEntries = () => {
-  // TODO: set up retreival of journal entries using useEffect then fill in state
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-  const mockData = [
-    {
-      date: '12/3/2018',
-      entry:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy ",
-      title: 'First Journal Entry'
-    },
-    {
-      date: '12/2/2018',
-      entry: "Lorem Ipsum has been the industry's standard dummy ",
-      title: 'Second Journal Entry'
-    },
-    {
-      date: '12/4/2018',
-      entry: "Lorem Ipsum has been the industry's standard dummy ",
-      title: 'Second Journal Entry'
-    }
-  ];
+const JournalEntries = ({
+  getCurrentProfile,
+  loading,
+  profile: { profile }
+}) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
 
   const [journalEntries, setJournalEntries] = useState({
     entries: mockData,
@@ -70,7 +62,9 @@ const JournalEntries = () => {
     marginLeft
   };
 
-  return (
+  return loading || profile === null ? (
+    <Loading />
+  ) : (
     <>
       <div style={sideBarStyle} className="sidebar">
         <button onClick={() => entrySelect(mockData)}>

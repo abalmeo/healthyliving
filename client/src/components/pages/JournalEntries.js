@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Loading from './Loading';
 import JournalEntry from './JournalEntry';
 import { getCurrentProfile } from '../../actions/profileAction';
@@ -16,8 +16,8 @@ const JournalEntries = ({
   }, [getCurrentProfile]);
 
   const [journalEntries, setJournalEntries] = useState({
-    entries: mockData,
-    currentEntry: [mockData[0]]
+    entries: '',
+    currentEntry: ''
   });
 
   const { entries, currentEntry } = journalEntries;
@@ -41,6 +41,7 @@ const JournalEntries = ({
       setSideBar({ ...sideBar, open: false, width: 0, marginLeft: 0 });
     }
   };
+  console.log('profile.journalEntries', profile);
 
   // Adjust text length display on sidebar
   const checkTextLength = entry => {
@@ -67,10 +68,10 @@ const JournalEntries = ({
   ) : (
     <>
       <div style={sideBarStyle} className="sidebar">
-        <button onClick={() => entrySelect(mockData)}>
+        <button onClick={() => entrySelect(profile.journalEntry)}>
           <span>View All Entries</span>
         </button>
-        {mockData.map(entry => (
+        {profile.journalEntry.map(entry => (
           <button onClick={() => entrySelect([entry])}>
             <span>{checkTextLength(entry)}</span>
           </button>
@@ -81,10 +82,18 @@ const JournalEntries = ({
         <button className="openbtn" onClick={e => toggleSideBar(e)}>
           <i className="fas fa-bars" />
         </button>
-        <JournalEntry entry={currentEntry} />
+        {currentEntry === '' ? '' : <JournalEntry entry={currentEntry} />}
       </div>
     </>
   );
 };
 
-export default JournalEntries;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  profile: state.profile
+});
+
+export default connect(
+  mapStateToProps,
+  { getCurrentProfile }
+)(JournalEntries);

@@ -109,9 +109,23 @@ router.post(
 
     try {
       // Check if profile exists for user
-      const profile = await Profile.findOne({ user: req.user.id });
+      const profile = await Profile.findOne({
+        user: req.user.id
+      });
+
       if (profile) {
-        profile.journalEntry.unshift(req.body);
+        profile.journalEntry.push({
+          title: req.body.title,
+          body: req.body.body,
+          date: req.body.date.substring(0, 10)
+        });
+
+        // Sort entries in descending order from most recent to oldest date
+        let sortedEntries = profile.journalEntry.sort((field1, field2) => {
+          return field2.date - field1.date;
+        });
+
+        profile.journalEntry = sortedEntries;
         await profile.save();
         return res.json(profile.journalEntry);
       }

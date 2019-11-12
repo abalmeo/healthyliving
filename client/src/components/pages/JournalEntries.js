@@ -48,7 +48,7 @@ const JournalEntries = ({
 
   // Adjust text length display on sidebar
   const checkTextLength = entry => {
-    let str = entry.date + ' : ' + entry.title;
+    let str = entry.date.substring(0, 10) + ' : ' + entry.title;
 
     if (str.length > 30) {
       str = str.substring(0, 28) + '...';

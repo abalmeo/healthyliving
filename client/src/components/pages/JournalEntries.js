@@ -23,7 +23,11 @@ const JournalEntries = ({
   const { entries, currentEntry } = journalEntries;
 
   const entrySelect = entry => {
-    setJournalEntries({ ...journalEntries, currentEntry: entry });
+    if (!entry) {
+      setJournalEntries({ ...journalEntries, currentEntry: '' });
+    } else {
+      setJournalEntries({ ...journalEntries, currentEntry: entry });
+    }
   };
 
   const [sideBar, setSideBar] = useState({
@@ -41,7 +45,6 @@ const JournalEntries = ({
       setSideBar({ ...sideBar, open: false, width: 0, marginLeft: 0 });
     }
   };
-  console.log('profile.journalEntries', profile);
 
   // Adjust text length display on sidebar
   const checkTextLength = entry => {
@@ -63,7 +66,7 @@ const JournalEntries = ({
     marginLeft
   };
 
-  return loading || profile === null ? (
+  return profile === null ? (
     <Loading />
   ) : (
     <>
@@ -71,11 +74,13 @@ const JournalEntries = ({
         <button onClick={() => entrySelect(profile.journalEntry)}>
           <span>View All Entries</span>
         </button>
-        {profile.journalEntry.map(entry => (
-          <button onClick={() => entrySelect([entry])}>
-            <span>{checkTextLength(entry)}</span>
-          </button>
-        ))}
+        {profile.journalEntry &&
+          profile.journalEntry.length > 0 &&
+          profile.journalEntry.map(entry => (
+            <button onClick={() => entrySelect([entry])}>
+              <span>{checkTextLength(entry)}</span>
+            </button>
+          ))}
       </div>
 
       <div style={mainStyle} className="main">

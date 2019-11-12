@@ -9,7 +9,7 @@ const JournalEntry = ({ entry }) => {
           <div key={entry.date}>
             <p>Date: {entry.date}</p>
             <p>Title: {entry.title}</p>
-            <p>Entry: {entry.entry}</p>
+            <p>Entry: {entry.body}</p>
           </div>
         </div>
       ))}

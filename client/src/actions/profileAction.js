@@ -34,7 +34,7 @@ export const createProfile = (formData, edit = false) => async dispatch => {
         'Content-Type': 'application/json'
       }
     };
-
+    console.log('formData', formData);
     const res = await axios.post('/api/profile', formData, config);
 
     dispatch({
@@ -42,7 +42,7 @@ export const createProfile = (formData, edit = false) => async dispatch => {
       payload: res.data
     });
     // If edit true, then profile updated otherwise profile is created
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+    // dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -56,9 +56,15 @@ export const createProfile = (formData, edit = false) => async dispatch => {
   }
 };
 
-export const updateProfile = () => async dispatch => {
+export const updateProfile = formData => async dispatch => {
   try {
-    const res = await axios.post('/api/profile');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    console.log('formData', formData);
+    const res = await axios.post('/api/profile', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,

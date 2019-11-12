@@ -35,8 +35,6 @@ const HealthForms = ({ updateProfile }) => {
       }
     }
 
-    console.log('profileData', profileData);
-
     updateProfile(profileData);
   };
 

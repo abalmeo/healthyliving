@@ -24,18 +24,26 @@ router.post('/', [auth], async (req, res) => {
     if (profile) {
       for (let formKey in req.body) {
         if (!['date', 'systolic', 'diastolic'].includes(formKey)) {
-          profile[formKey].unshift({
+          profile[formKey].push({
             date: req.body.date,
             value: req.body[formKey]
+          });
+
+          profile[formKey].sort((field1, field2) => {
+            return field1.date - field2.date;
           });
         }
       }
 
       if (req.body.systolic && req.body.diastolic) {
-        profile.bloodPressure.unshift({
+        profile.bloodPressure.push({
           systolic: req.body.systolic,
           diastolic: req.body.diastolic,
           date: req.body.date
+        });
+
+        profile.bloodPressure.sort((field1, field2) => {
+          return field1.date - field2.date;
         });
       }
 

@@ -28,8 +28,3 @@ const PORT = process.env.PORT || 5000;
 
 //Start Server
 app.listen(PORT, () => console.log(`Serving running on port ${PORT}`));
-
-let unix_timestamp = Date.now();
-console.log('unix_timestamp', unix_timestamp);
-var date = new Date(unix_timestamp * 1000);
-console.log('date', date);

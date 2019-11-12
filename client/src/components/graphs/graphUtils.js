@@ -14,7 +14,7 @@ export const obtainChartData = (datapoints, labelName) => {
 
   // Loop through data coming in
   datapoints.forEach(datapoint => {
-    labels.push(datapoint.date);
+    labels.push(datapoint.date.substring(0, 10));
     datasets[0].data.push(datapoint.value);
   });
 
@@ -42,7 +42,7 @@ export const obtainBPData = (datapoints, labelName) => {
 
   // Loop through data coming in
   datapoints.forEach(datapoint => {
-    labels.push(datapoint.date);
+    labels.push(datapoint.date.substring(0, 10));
     datasets[0].data.push(datapoint.systolic);
     datasets[1].data.push(datapoint.diastolic);
   });

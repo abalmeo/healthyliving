@@ -34,7 +34,6 @@ export const createProfile = (formData, edit = false) => async dispatch => {
         'Content-Type': 'application/json'
       }
     };
-    console.log('formData', formData);
     const res = await axios.post('/api/profile', formData, config);
 
     dispatch({
@@ -63,7 +62,6 @@ export const updateProfile = formData => async dispatch => {
         'Content-Type': 'application/json'
       }
     };
-    console.log('formData', formData);
     const res = await axios.post('/api/profile', formData, config);
 
     dispatch({

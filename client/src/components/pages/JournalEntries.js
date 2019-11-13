@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import React, { useEffect, useState } from 'react';
 import Loading from './Loading';
 import JournalEntry from './JournalEntry';
@@ -5,6 +6,7 @@ import { getCurrentProfile } from '../../actions/profileAction';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { isRegExp } from 'util';
 
 const JournalEntries = ({
   getCurrentProfile,
@@ -13,11 +15,14 @@ const JournalEntries = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, [getCurrentProfile]);
+  }, [getCurrentProfile, profile]);
 
   const [journalEntries, setJournalEntries] = useState({
     entries: '',
-    currentEntry: ''
+    currentEntry:
+      profile.hasOwnProperty('journalEntry') && profile.journalEntry.length > 0
+        ? profile.journalEntry
+        : []
   });
 
   const { entries, currentEntry } = journalEntries;
